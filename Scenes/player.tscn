@@ -1,17 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://cek5sqgdxjiga"]
+[gd_scene load_steps=6 format=3 uid="uid://cek5sqgdxjiga"]
 
 [ext_resource type="Texture2D" uid="uid://bap7wf1jybhan" path="res://Sprites/characterBlue.png" id="1_fmk5q"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_y3vyn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3y5p"]
 bg_color = Color(0.197937, 0.197937, 0.197937, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjlf8"]
 bg_color = Color(0, 0.718793, 0.355436, 1)
+corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
-[node name="Player" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_yvud8"]
+radius = 8.0
+
+[node name="characterbody2d" type="CharacterBody2D"]
 script = ExtResource("1_y3vyn")
 
 [node name="Health_bar" type="ProgressBar" parent="."]
@@ -26,3 +35,7 @@ show_percentage = false
 
 [node name="Player_sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_fmk5q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yvud8")
+debug_color = Color(0, 0.63856, 0.377012, 0.42)

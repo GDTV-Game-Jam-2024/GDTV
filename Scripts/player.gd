@@ -1,6 +1,5 @@
-extends Node2D
+extends CharacterBody2D
 
-# TODO: ask why use @export?
 @export var speed=250
 @export var health_max = 100
 @export var health_current = 100
@@ -20,26 +19,32 @@ func _process(delta):
 		var move_vector=Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 		position += move_vector.normalized()*speed*delta
 		
-		# sprite faces cursor	
+		# sprite faces cursor
 		var angle = (get_viewport().get_mouse_position()-position).angle()
 		$Player_sprite.set_rotation(angle)
 	else:
 		kill()
 
 
-# Called upon taking damage (negative delta) or healing (positive delta)
-func change_health(delta):
-	#update health_current
-	health_current = health_current+delta
-	# prevent overheal
-	if health_current > health_max:
-		health_current = health_max
-		
+# Reduce health
+func damage(amount):
+	health_current = health_current-amount
+	update_health_bar()
 	# check if dead
 	if health_current <= 0:
 		isAlive=false
 
-	# healthbar update
+
+# Increase health
+func heal(amount):
+	health_current = health_current+amount
+	update_health_bar()
+	# prevent overheal
+	if health_current > health_max:
+		health_current = health_max
+
+
+func update_health_bar():
 	$Health_bar.max_value=health_max
 	$Health_bar.value=health_current
 
