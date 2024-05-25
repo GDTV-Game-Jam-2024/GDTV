@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var isAlive = true
 
 var move_vector
+enum CARDINAL_DIRECTION {N, NE, E, SE, S, SW, W, NW}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +24,7 @@ func _process(delta):
 		# sprite faces cursor
 		var angle = (get_viewport().get_mouse_position()-position).angle()
 		$Player_sprite.set_rotation(angle)
+				
 	else:
 		kill()
 
@@ -58,3 +60,25 @@ func update_health_bar():
 func kill():
 	print($".", "has died.")
 	# TODO: call end screen?
+
+
+# convert radian to one of 8 cardinal directions
+func angle_to_direction(angle):
+	if abs(angle)<PI/8:
+		return CARDINAL_DIRECTION.E
+	if abs(angle)>PI*7/8:
+		return CARDINAL_DIRECTION.W
+	if angle>0:
+		if angle<PI*3/8:
+			return CARDINAL_DIRECTION.SE
+		if angle<PI*5/8:
+			return CARDINAL_DIRECTION.S
+		if angle<PI*7/8:
+			return CARDINAL_DIRECTION.SW
+	else:
+		if angle>PI*-3/8:
+			return CARDINAL_DIRECTION.NE
+		if angle>PI*-5/8:
+			return CARDINAL_DIRECTION.N
+		if angle>PI*-7/8:
+			return CARDINAL_DIRECTION.NW
