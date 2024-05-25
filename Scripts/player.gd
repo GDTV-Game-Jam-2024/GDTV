@@ -5,26 +5,31 @@ extends CharacterBody2D
 @export var health_current = 100
 @export var isAlive = true
 
+var move_vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# initialize at center of screen
 	position = Vector2(640,360)
+	move_vector=Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# receive move input
+	move_vector=Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	
 	if isAlive:
-		# movement
-		var move_vector=Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-		position += move_vector.normalized()*speed*delta
-		
 		# sprite faces cursor
 		var angle = (get_viewport().get_mouse_position()-position).angle()
 		$Player_sprite.set_rotation(angle)
 	else:
 		kill()
 
+func _physics_process(delta):
+	if isAlive:
+		# movement
+		position += move_vector.normalized()*speed*delta
 
 # Reduce health
 func damage(amount):
