@@ -1,10 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://cek5sqgdxjiga"]
+[gd_scene load_steps=5 format=3 uid="uid://cek5sqgdxjiga"]
 
 [ext_resource type="Texture2D" uid="uid://bap7wf1jybhan" path="res://Sprites/characterBlue.png" id="1_fmk5q"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_y3vyn"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3y5p"]
+bg_color = Color(0.197937, 0.197937, 0.197937, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjlf8"]
+bg_color = Color(0, 0.718793, 0.355436, 1)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
 [node name="Player" type="Node2D"]
 script = ExtResource("1_y3vyn")
 
-[node name="Character" type="Sprite2D" parent="."]
+[node name="Health_bar" type="ProgressBar" parent="."]
+offset_left = -34.0
+offset_top = -27.0
+offset_right = 35.0
+offset_bottom = -19.0
+theme_override_styles/background = SubResource("StyleBoxFlat_i3y5p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gjlf8")
+value = 100.0
+show_percentage = false
+
+[node name="Player_sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_fmk5q")
