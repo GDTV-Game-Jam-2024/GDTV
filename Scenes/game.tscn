@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlrbxtqn0y3jm"]
+
+[ext_resource type="Texture2D" uid="uid://dxb67a31ph2kf" path="res://Sprites/stone1c.jpg" id="1_fvw3u"]
+[ext_resource type="PackedScene" uid="uid://cek5sqgdxjiga" path="res://Scenes/player.tscn" id="2_ul243"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Ground" type="Sprite2D" parent="."]
+position = Vector2(640.5, 361)
+scale = Vector2(3.21357, 1.795)
+texture = ExtResource("1_fvw3u")
+
+[node name="characterbody2d" parent="." instance=ExtResource("2_ul243")]
