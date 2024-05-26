@@ -4,9 +4,11 @@ extends CharacterBody2D
 @export var health_max = 100
 @export var health_current = 100
 @export var isAlive = true
+@export var isWalking = false
 
 var move_vector
 enum CARDINAL_DIRECTION {N, NE, E, SE, S, SW, W, NW}
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,17 +23,27 @@ func _process(delta):
 	move_vector=Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	
 	if isAlive:
+		# check if walking
+		if move_vector==Vector2(0,0): isWalking=false
+		else: isWalking=true
+
 		# sprite faces cursor
 		var angle = (get_viewport().get_mouse_position()-position).angle()
-		$Player_sprite.set_rotation(angle)
-				
+		
+		# set animation
+		animate_sprite(angle, isWalking)
+
+	# kill if isAlive is set to false
 	else:
 		kill()
 
+
+# Like _process, but called every physics frame (60fps)
 func _physics_process(delta):
 	if isAlive:
 		# movement
 		position += move_vector.normalized()*speed*delta
+
 
 # Reduce health
 func damage(amount):
@@ -82,3 +94,19 @@ func angle_to_direction(angle):
 			return CARDINAL_DIRECTION.N
 		if angle>PI*-7/8:
 			return CARDINAL_DIRECTION.NW
+
+
+# pick which animation to show based on angle and isWalking
+func animate_sprite(angle, isWalking):
+	var direction=angle_to_direction(angle)
+	var walk_state
+	var enum_to_string_dict = {
+		0: "N", 1: "NE", 2: "E", 3: "SE",
+		4: "S", 5: "SW", 6: "W", 7: "NW"
+	}
+	
+	if isWalking: walk_state="Walk"
+	else: walk_state="Idle"
+	var animation_name = walk_state+"_"+enum_to_string_dict[direction]
+	$AnimatedSprite2D.play(animation_name)
+	
