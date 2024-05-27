@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlrbxtqn0y3jm"]
+[gd_scene load_steps=7 format=3 uid="uid://dlrbxtqn0y3jm"]
 
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_3w7sm"]
 [ext_resource type="PackedScene" uid="uid://cek5sqgdxjiga" path="res://Scenes/player.tscn" id="2_ul243"]
 [ext_resource type="Texture2D" uid="uid://c53h581wb5u0x" path="res://Sprites/Desert Tileset.png" id="3_apitf"]
+[ext_resource type="PackedScene" uid="uid://cp308twrdpldd" path="res://Scenes/spawn_portal.tscn" id="3_becpk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ff2i"]
 texture = ExtResource("3_apitf")
@@ -348,6 +350,7 @@ terrain_set_0/mode = 0
 sources/2 = SubResource("TileSetAtlasSource_6ff2i")
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_3w7sm")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_yi720")
@@ -357,3 +360,6 @@ layer_0/tile_data = PackedInt32Array(262152, 131074, 4, 327688, 131074, 4, 39322
 [node name="player" parent="." instance=ExtResource("2_ul243")]
 
 [node name="Camera2D" type="Camera2D" parent="player"]
+
+[node name="spawn_portal" parent="." instance=ExtResource("3_becpk")]
+position = Vector2(1283, 718)
