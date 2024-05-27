@@ -20,6 +20,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# receive move input
+
 	move_vector=Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	
 	if isAlive:
@@ -46,7 +47,7 @@ func _physics_process(delta):
 
 
 # Reduce health
-func damage(amount):
+func damage(amount: int):
 	health_current = health_current-amount
 	update_health_bar()
 	# check if dead
@@ -55,7 +56,7 @@ func damage(amount):
 
 
 # Increase health
-func heal(amount):
+func heal(amount: int):
 	health_current = health_current+amount
 	update_health_bar()
 	# prevent overheal
@@ -75,7 +76,7 @@ func kill():
 
 
 # convert radian to one of 8 cardinal directions
-func angle_to_direction(angle):
+func angle_to_direction(angle: float):
 	if abs(angle)<PI/8:
 		return CARDINAL_DIRECTION.E
 	if abs(angle)>PI*7/8:
@@ -97,7 +98,7 @@ func angle_to_direction(angle):
 
 
 # pick which animation to show based on angle and isWalking
-func animate_sprite(angle, isWalking):
+func animate_sprite(angle: float, isWalking: bool):
 	var direction=angle_to_direction(angle)
 	var walk_state
 	var enum_to_string_dict = {
