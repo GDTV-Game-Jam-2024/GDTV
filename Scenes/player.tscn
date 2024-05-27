@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://cek5sqgdxjiga"]
+[gd_scene load_steps=65 format=3 uid="uid://cek5sqgdxjiga"]
 
 [ext_resource type="Texture2D" uid="uid://bap7wf1jybhan" path="res://Sprites/characterBlue.png" id="1_fmk5q"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_y3vyn"]
@@ -19,7 +19,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yvud8"]
-radius = 8.0
+radius = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o77j6"]
 atlas = ExtResource("3_vx3ox")
@@ -856,13 +856,6 @@ _data = {
 "Walk_W": SubResource("Animation_brmmp")
 }
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dv0gd"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_otbpq"]
-states/Start/position = Vector2(172, 100)
-transitions = ["Start", "End", SubResource("AnimationNodeStateMachineTransition_dv0gd")]
-
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_y3vyn")
 
@@ -893,6 +886,3 @@ reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_kh46f")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_otbpq")
