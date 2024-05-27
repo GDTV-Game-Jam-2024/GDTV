@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_3w7sm"]
 [ext_resource type="PackedScene" uid="uid://cek5sqgdxjiga" path="res://Scenes/player.tscn" id="2_ul243"]
 [ext_resource type="Texture2D" uid="uid://c53h581wb5u0x" path="res://Sprites/Desert Tileset.png" id="3_apitf"]
-[ext_resource type="PackedScene" uid="uid://cp308twrdpldd" path="res://Scenes/spawn_portal.tscn" id="3_becpk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ff2i"]
 texture = ExtResource("3_apitf")
@@ -349,6 +348,12 @@ tile_size = Vector2i(32, 32)
 terrain_set_0/mode = 0
 sources/2 = SubResource("TileSetAtlasSource_6ff2i")
 
+[sub_resource type="Curve2D" id="Curve2D_q0mph"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 3288, 360, 0, 0, 0, 0, 3288, 1920, 0, 0, 0, 0, 640, 1920, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 1280, 736, 0, 0, 0, 0, 1280, 1464, 0, 0, 0, 0, 2552, 1472, 0, 0, 0, 0, 2552, 736, 0, 0, 0, 0, 1280, 736, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 640, 360)
+}
+point_count = 12
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_3w7sm")
 
@@ -361,5 +366,8 @@ layer_0/tile_data = PackedInt32Array(262152, 131074, 4, 327688, 131074, 4, 39322
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 
-[node name="spawn_portal" parent="." instance=ExtResource("3_becpk")]
-position = Vector2(1283, 718)
+[node name="SpawnerPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_q0mph")
+
+[node name="SpawnerSpawnLocation" type="PathFollow2D" parent="SpawnerPath"]
+position = Vector2(640, 360)

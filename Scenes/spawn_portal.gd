@@ -1,15 +1,16 @@
 extends CharacterBody2D
 
-@export var spawn_timer_max = 10  # how often it spawns enemies
-@export var spawn_timer = 10  # how much time left until next spawn
+@export var spawn_timer_max = 7  # how often it spawns enemies
+@export var spawn_timer = 7  # how much time left until next spawn
 @export var spawn_power = 10  # how many enemies get spawned per cycle
 @export var health = 20  # how much damage it can take
 @export var isAlive = true
 
 
-# allows initialization with custom parameters
-func init():
-	spawn_timer = 10
+# allows initialization with coordinates
+func init(coordinates):
+	position = coordinates
+	spawn_timer = 7
 	spawn_power = 10
 	health = 20
 	isAlive = true
@@ -33,13 +34,14 @@ func _physics_process(delta):
 		spawn()
 
 
+# spawn new set of units every cycle
 func spawn():
-	print("just spawned")
+	print($"."," spawned units.")
 	# TODO: spawn enemies
 
 	# TODO: raise power?
 
-	# resetting spawn timer
+	# reset spawn timer
 	spawn_timer = spawn_timer+spawn_timer_max	
 
 # called when isAlive is set to false
