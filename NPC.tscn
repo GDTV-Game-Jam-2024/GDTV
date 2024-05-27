@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://djmvmje8k5mgm"]
+
+[ext_resource type="Script" path="res://NPC.gd" id="1_b5m3u"]
+[ext_resource type="Texture2D" uid="uid://0jt78t6g8miv" path="res://icon.svg" id="2_1yvmg"]
+[ext_resource type="Script" path="res://AI.gd" id="3_utucg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yl5l7"]
+radius = 102.13
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y0kkt"]
+radius = 700.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qrmbt"]
+radius = 153.55
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rf83c"]
+radius = 424.01
+
+[node name="NPC" type="CharacterBody2D"]
+position = Vector2(306, 199)
+script = ExtResource("1_b5m3u")
+
+[node name="StateDebugInfo" type="Label" parent="."]
+offset_left = -49.0
+offset_top = -91.0
+offset_right = 55.0
+offset_bottom = -68.0
+size_flags_horizontal = 4
+text = "Current State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1yvmg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CharacterColision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yl5l7")
+
+[node name="CharacterDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterDetection"]
+shape = SubResource("CircleShape2D_y0kkt")
+
+[node name="MeleeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+shape = SubResource("CircleShape2D_qrmbt")
+
+[node name="RangedRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangedRange"]
+shape = SubResource("CircleShape2D_rf83c")
+debug_color = Color(0.497181, 0.575544, 0.25414, 0.42)
+
+[node name="AI" type="Node2D" parent="."]
+script = ExtResource("3_utucg")
+
+[connection signal="body_entered" from="CharacterDetection" to="AI" method="_on_character_detection_body_entered"]
+[connection signal="body_exited" from="CharacterDetection" to="AI" method="_on_character_detection_body_exited"]
+[connection signal="body_entered" from="MeleeRange" to="AI" method="_on_melee_range_body_entered"]
+[connection signal="body_exited" from="MeleeRange" to="AI" method="_on_melee_range_body_exited"]
+[connection signal="body_entered" from="RangedRange" to="AI" method="_on_ranged_range_body_entered"]
+[connection signal="body_exited" from="RangedRange" to="AI" method="_on_ranged_range_body_exited"]
