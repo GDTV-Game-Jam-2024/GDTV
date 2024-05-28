@@ -1,9 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://djmvmje8k5mgm"]
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://Scripts/NPC.gd" id="1_hf3se"]
 [ext_resource type="Texture2D" uid="uid://0jt78t6g8miv" path="res://icon.svg" id="2_125fk"]
 [ext_resource type="Script" path="res://Scripts/AI.gd" id="3_jaxy2"]
+=======
+[ext_resource type="Script" path="res://Scripts/NPC.gd" id="1_b5m3u"]
+[ext_resource type="Texture2D" uid="uid://0jt78t6g8miv" path="res://icon.svg" id="2_1yvmg"]
+[ext_resource type="Script" path="res://Scripts/AI.gd" id="3_utucg"]
+>>>>>>> Stashed changes
 =======
 [ext_resource type="Script" path="res://Scripts/NPC.gd" id="1_b5m3u"]
 [ext_resource type="Texture2D" uid="uid://0jt78t6g8miv" path="res://icon.svg" id="2_1yvmg"]
