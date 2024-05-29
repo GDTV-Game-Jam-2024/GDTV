@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 @export var movementSpeed : float = 250.0
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
