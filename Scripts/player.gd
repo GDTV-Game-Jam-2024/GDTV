@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var movementSpeed : float = 250.0
+@export var movementSpeed : float = 500.0
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
 @export var isAlive : bool = true
@@ -15,7 +15,7 @@ enum CARDINAL_DIRECTION {N, NE, E, SE, S, SW, W, NW}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# initialize at center of screen
-	position = Vector2(640,360)
+	position = Vector2(1280*1.5,720*1.5)
 	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 
 
