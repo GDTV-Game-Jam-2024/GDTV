@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlrbxtqn0y3jm"]
+[gd_scene load_steps=4 format=3 uid="uid://dlrbxtqn0y3jm"]
 
 [ext_resource type="Texture2D" uid="uid://dxb67a31ph2kf" path="res://Sprites/stone1c.jpg" id="1_fvw3u"]
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_h127a"]
 [ext_resource type="PackedScene" uid="uid://cek5sqgdxjiga" path="res://Scenes/player.tscn" id="2_ul243"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_h127a")
 
 [node name="Ground" type="Sprite2D" parent="."]
 position = Vector2(640.5, 361)
@@ -11,3 +13,9 @@ scale = Vector2(3.21357, 1.795)
 texture = ExtResource("1_fvw3u")
 
 [node name="characterbody2d" parent="." instance=ExtResource("2_ul243")]
+
+[node name="ProjectileManager" type="Node2D" parent="."]
+
+[connection signal="mana_changed" from="characterbody2d" to="." method="_on_characterbody_2d_mana_changed"]
+[connection signal="no_mana" from="characterbody2d" to="." method="_on_characterbody_2d_no_mana"]
+[connection signal="projectile_shot" from="characterbody2d" to="." method="_on_characterbody_2d_projectile_shot"]
