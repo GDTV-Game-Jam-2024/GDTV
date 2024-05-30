@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://cek5sqgdxjiga"]
+[gd_scene load_steps=66 format=3 uid="uid://cek5sqgdxjiga"]
 
 [ext_resource type="Texture2D" uid="uid://bap7wf1jybhan" path="res://Sprites/characterBlue.png" id="1_fmk5q"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_y3vyn"]
@@ -12,7 +12,14 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjlf8"]
-bg_color = Color(0, 0.718793, 0.355436, 1)
+bg_color = Color(0, 0.713675, 0.432912, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_reesu"]
+bg_color = Color(1.92523e-06, 0.650636, 0.890475, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -860,12 +867,22 @@ _data = {
 script = ExtResource("1_y3vyn")
 
 [node name="Health_bar" type="ProgressBar" parent="."]
-offset_left = -34.0
-offset_top = -27.0
-offset_right = 35.0
-offset_bottom = -19.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = -24.0
 theme_override_styles/background = SubResource("StyleBoxFlat_i3y5p")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gjlf8")
+value = 100.0
+show_percentage = false
+
+[node name="Mana_bar" type="ProgressBar" parent="."]
+offset_left = -32.0
+offset_top = -24.0
+offset_right = 32.0
+offset_bottom = -16.0
+theme_override_styles/background = SubResource("StyleBoxFlat_i3y5p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_reesu")
 value = 100.0
 show_percentage = false
 

@@ -1,13 +1,14 @@
 extends Node2D
 
 @export var game_timer = 0  # how much time has elapsed since starting game
-@export var spawn_timer = 3  # how much time is remaining since next spawner
+@export var spawn_timer = 30  # how much time is remaining since next spawner
 @export var isRunning = true  # whether game is running or paused
 
 var spawner = load("res://Scenes/spawn_portal.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	spawn_spawner()
 	pass # Replace with function body.
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=3 uid="uid://cp308twrdpldd"]
+[gd_scene load_steps=133 format=3 uid="uid://cp308twrdpldd"]
 
 [ext_resource type="Texture2D" uid="uid://c6hovh4oqs4d4" path="res://Sprites/Evil Rock.png" id="1_dpn0r"]
 [ext_resource type="Script" path="res://Scenes/spawn_portal.gd" id="1_mf87n"]
@@ -936,6 +936,12 @@ _data = {
 "default": SubResource("Animation_5uk2w")
 }
 
+[sub_resource type="Curve2D" id="Curve2D_qe5kc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -75, 0, 0, 0, 0, 60, -60, 0, 0, 0, 0, 75, 0, 0, 0, 0, 0, 60, 60, 0, 0, 0, 0, 0, 75, 0, 0, 0, 0, -60, 60, 0, 0, 0, 0, -75, 0, 0, 0, 0, 0, -60, -60, 0, 0, 0, 0, 0, -75)
+}
+point_count = 9
+
 [node name="spawn_portal" type="CharacterBody2D"]
 script = ExtResource("1_mf87n")
 
@@ -957,3 +963,6 @@ root_node = NodePath("../AnimatedSprite2D")
 libraries = {
 "": SubResource("AnimationLibrary_518ng")
 }
+
+[node name="SummonPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_qe5kc")
