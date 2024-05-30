@@ -4,6 +4,9 @@ extends CharacterBody2D
 @export var movementSpeed : float = 500.0
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
+@export var manaMax : float = 100.0
+@export var manaCurrent : float = 50.0
+@export var manaRegen : float = 10.0
 @export var isAlive : bool = true
 @export var isWalking : bool = false
 
@@ -46,6 +49,10 @@ func _physics_process(delta : float) -> void:
 	if isAlive:
 		# movement
 		position += move_vector.normalized() * movementSpeed * delta
+		
+		# mana regen
+		mana_gain(manaRegen*delta)
+	
 
 
 func get_team() -> String:
@@ -63,17 +70,41 @@ func damage(amount : int) -> void:
 
 # Increase health
 func heal(amount : int) -> void:
-	healthCurrent = healthCurrent + amount
+	healthCurrent += amount
 	update_health_bar()
 	# prevent overheal
 	if healthCurrent > healthMax:
 		healthCurrent = healthMax
 
 
+# send healthMax and healthCurrent to $Health_bar
 func update_health_bar() -> void:
 	$Health_bar.max_value = healthMax
 	$Health_bar.value = healthCurrent
 
+
+# gain mana
+func mana_gain(amount : float) -> void:
+	manaCurrent += amount
+	# prevent overcap, just set to max
+	if manaCurrent > manaMax:
+		manaCurrent = manaMax
+	update_mana_bar()
+
+
+# checks if there's enough mana to spend, then spend it. If not enough, returns false
+func mana_spend(amount : float):
+	if manaCurrent > amount:  # spend mana if enough in pool
+		manaCurrent -= amount
+	else: 
+		return false
+	update_mana_bar()
+		
+
+# send manaMax and manaCurrent to $Mana_bar
+func update_mana_bar() -> void:
+	$Mana_bar.max_value=manaMax
+	$Mana_bar.value=manaCurrent
 
 # Called when character dies
 func kill() -> void:
