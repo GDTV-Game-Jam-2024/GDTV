@@ -1,17 +1,8 @@
-
-[gd_scene load_steps=73 format=3 uid="uid://cek5sqgdxjiga"]
-
+[gd_scene load_steps=66 format=3 uid="uid://cek5sqgdxjiga"]
 
 [ext_resource type="Texture2D" uid="uid://bap7wf1jybhan" path="res://Sprites/characterBlue.png" id="1_fmk5q"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_y3vyn"]
 [ext_resource type="Texture2D" uid="uid://cy0cllfrxgjml" path="res://Sprites/Character8Dir(1).png" id="3_vx3ox"]
-[ext_resource type="PackedScene" uid="uid://d3lonwj2uc41e" path="res://Scenes/Weapons/wand_basic.tscn" id="4_l5dly"]
-[ext_resource type="PackedScene" uid="uid://c62eojw5snk6o" path="res://Scenes/Weapons/wand_fast.tscn" id="5_netnc"]
-[ext_resource type="PackedScene" uid="uid://dbma3nrn7yo2q" path="res://Scenes/Weapons/wand_shot.tscn" id="6_b80ik"]
-[ext_resource type="PackedScene" uid="uid://y3ar1y4m5rod" path="res://Scenes/Weapons/wand_fireball.tscn" id="7_vp1yr"]
-[ext_resource type="PackedScene" uid="uid://dxfgnvqami366" path="res://Scenes/Weapons/wand_super.tscn" id="8_458yc"]
-[ext_resource type="PackedScene" uid="uid://b5akr8qojtxqp" path="res://Scenes/Weapons/wand_bf.tscn" id="9_q8npb"]
-
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3y5p"]
 bg_color = Color(0.197937, 0.197937, 0.197937, 1)
@@ -912,27 +903,3 @@ reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_kh46f")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_otbpq")
-
-[node name="WeaponManager" type="Node2D" parent="."]
-
-[node name="WandBasic" parent="WeaponManager" instance=ExtResource("4_l5dly")]
-team = "Player"
-
-[node name="WandFast" parent="WeaponManager" instance=ExtResource("5_netnc")]
-team = "Player"
-
-[node name="WandShot" parent="WeaponManager" instance=ExtResource("6_b80ik")]
-team = "Player"
-
-[node name="WandFireball" parent="WeaponManager" instance=ExtResource("7_vp1yr")]
-team = "Player"
-
-[node name="WandSuper" parent="WeaponManager" instance=ExtResource("8_458yc")]
-team = "Player"
-
-[node name="WandBF" parent="WeaponManager" instance=ExtResource("9_q8npb")]
-team = "Player"
-
