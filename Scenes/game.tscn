@@ -371,3 +371,5 @@ curve = SubResource("Curve2D_q0mph")
 
 [node name="SpawnerSpawnLocation" type="PathFollow2D" parent="SpawnerPath"]
 position = Vector2(640, 360)
+
+[node name="ProjectileManager" type="Node2D" parent="."]
