@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbma3nrn7yo2q"]
-
-[ext_resource type="PackedScene" uid="uid://ohlhdt3pway8" path="res://Scenes/Weapons/weapon.tscn" id="1_wx08g"]
-
-[node name="WandShot" instance=ExtResource("1_wx08g")]
