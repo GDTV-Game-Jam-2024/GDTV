@@ -12,9 +12,19 @@ signal no_mana
 
 @onready var weaponManager : Node2D = $WeaponManager
 
+<<<<<<< Updated upstream
 var manaMax : int = 500
 var manaCurrent : int = 60
+=======
+>>>>>>> Stashed changes
 var team : String = "Player"
+
+# Wands that you have (index the same as in WeaponManager node)
+var currentWands : Array[bool] = [false, false, false, false, false, false]
+var selectedWand : int = 0
+var canChangeWand : bool = true # Unable to change on wand cooldown to avoid exploits
+enum WANDS {BASIC_WAND, FAST_WAND, SHOT_WAND, FIREBALL_WAND, SUPER_WAND, BFW}
+
 var move_vector : Vector2 = Vector2.ZERO
 
 # Wands that you have (index the same as in WeaponManager node)
@@ -28,7 +38,11 @@ enum CARDINAL_DIRECTION {N, NE, E, SE, S, SW, W, NW}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+<<<<<<< Updated upstream
 #region wand init
+=======
+	#region wand init
+>>>>>>> Stashed changes
 	# Connect signals from all wands
 	for wand in weaponManager.get_children():
 		wand.connect("shotProjectile", _on_projectile_shot)
@@ -40,7 +54,10 @@ func _ready() -> void:
 	add_wand(WANDS.BASIC_WAND)
 	select_wand(WANDS.BASIC_WAND)
 #endregion
+<<<<<<< Updated upstream
 	
+=======
+>>>>>>> Stashed changes
 	# initialize at center of screen
 	position = Vector2(640,360)
 	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
@@ -73,6 +90,12 @@ func _physics_process(delta : float) -> void:
 	if isAlive:
 		# movement
 		position += move_vector.normalized() * movementSpeed * delta
+<<<<<<< Updated upstream
+=======
+		
+		# mana regen
+		mana_gain(manaRegen*delta)
+>>>>>>> Stashed changes
 
 
 func _unhandled_input(event : InputEvent) -> void:

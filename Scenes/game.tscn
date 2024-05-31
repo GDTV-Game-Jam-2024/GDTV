@@ -16,6 +16,20 @@ texture = ExtResource("1_fvw3u")
 
 [node name="ProjectileManager" type="Node2D" parent="."]
 
+<<<<<<< Updated upstream
 [connection signal="mana_changed" from="characterbody2d" to="." method="_on_characterbody_2d_mana_changed"]
 [connection signal="no_mana" from="characterbody2d" to="." method="_on_characterbody_2d_no_mana"]
 [connection signal="projectile_shot" from="characterbody2d" to="." method="_on_characterbody_2d_projectile_shot"]
+=======
+[node name="SpawnerPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_q0mph")
+
+[node name="SpawnerSpawnLocation" type="PathFollow2D" parent="SpawnerPath"]
+position = Vector2(640, 360)
+
+[node name="ProjectileManager" type="Node2D" parent="."]
+
+[connection signal="mana_changed" from="player" to="." method="_on_player_mana_changed"]
+[connection signal="no_mana" from="player" to="." method="_on_player_no_mana"]
+[connection signal="projectile_shot" from="player" to="." method="_on_player_projectile_shot"]
+>>>>>>> Stashed changes
