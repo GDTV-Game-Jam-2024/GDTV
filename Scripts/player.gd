@@ -4,19 +4,22 @@ signal projectile_shot(projectileName)
 signal mana_changed(newMana)
 signal no_mana
 
-@export var movementSpeed : float = 250.0
+@export var movementSpeed : float = 500.0
+
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
+@export var manaMax : float = 100.0
+@export var manaCurrent : float = 50.0
+@export var manaRegen : float = 10.0
 @export var isAlive : bool = true
 @export var isWalking : bool = false
 
 @onready var weaponManager : Node2D = $WeaponManager
 
-<<<<<<< Updated upstream
+
 var manaMax : int = 500
 var manaCurrent : int = 60
-=======
->>>>>>> Stashed changes
+
 var team : String = "Player"
 
 # Wands that you have (index the same as in WeaponManager node)
@@ -38,11 +41,9 @@ enum CARDINAL_DIRECTION {N, NE, E, SE, S, SW, W, NW}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-<<<<<<< Updated upstream
+
 #region wand init
-=======
-	#region wand init
->>>>>>> Stashed changes
+
 	# Connect signals from all wands
 	for wand in weaponManager.get_children():
 		wand.connect("shotProjectile", _on_projectile_shot)
@@ -54,12 +55,9 @@ func _ready() -> void:
 	add_wand(WANDS.BASIC_WAND)
 	select_wand(WANDS.BASIC_WAND)
 #endregion
-<<<<<<< Updated upstream
-	
-=======
->>>>>>> Stashed changes
+
 	# initialize at center of screen
-	position = Vector2(640,360)
+	position = Vector2(1280*1.5,720*1.5)
 	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 
 
@@ -90,18 +88,22 @@ func _physics_process(delta : float) -> void:
 	if isAlive:
 		# movement
 		position += move_vector.normalized() * movementSpeed * delta
-<<<<<<< Updated upstream
-=======
-		
+
 		# mana regen
 		mana_gain(manaRegen*delta)
->>>>>>> Stashed changes
+
 
 
 func _unhandled_input(event : InputEvent) -> void:
 	# Choosing a wand by pressing 1-6 or scroll up/down.
 	choose_wand_by_key(event)
 	choose_wand_by_scroll(event)
+
+		
+		# mana regen
+		mana_gain(manaRegen*delta)
+	
+
 
 
 func get_team() -> String:
@@ -204,17 +206,41 @@ func take_damage(amount : int) -> void:
 
 # Increase health
 func heal(amount : int) -> void:
-	healthCurrent = healthCurrent + amount
+	healthCurrent += amount
 	update_health_bar()
 	# prevent overheal
 	if healthCurrent > healthMax:
 		healthCurrent = healthMax
 
 
+# send healthMax and healthCurrent to $Health_bar
 func update_health_bar() -> void:
 	$Health_bar.max_value = healthMax
 	$Health_bar.value = healthCurrent
 
+
+# gain mana
+func mana_gain(amount : float) -> void:
+	manaCurrent += amount
+	# prevent overcap, just set to max
+	if manaCurrent > manaMax:
+		manaCurrent = manaMax
+	update_mana_bar()
+
+
+# checks if there's enough mana to spend, then spend it. If not enough, returns false
+func mana_spend(amount : float):
+	if manaCurrent > amount:  # spend mana if enough in pool
+		manaCurrent -= amount
+	else: 
+		return false
+	update_mana_bar()
+		
+
+# send manaMax and manaCurrent to $Mana_bar
+func update_mana_bar() -> void:
+	$Mana_bar.max_value=manaMax
+	$Mana_bar.value=manaCurrent
 
 # Called when character dies
 func kill() -> void:
