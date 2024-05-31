@@ -1,24 +1,5 @@
 extends Node2D
 
-@onready var projectileManager : Node2D = $ProjectileManager
-
-var currentMana : int = 0
-var spawner = load("res://Scenes/spawn_portal.tscn")
-
-
-func _on_characterbody_2d_projectile_shot(projectileName : Projectile):
-	projectileManager.add_child(projectileName)
-	projectileName.projectileOwner = $characterbody2d
-
-
-func _on_characterbody_2d_mana_changed(newMana):
-	currentMana = newMana # Change mana in ui
-
-
-
-func _on_characterbody_2d_no_mana():
-	pass # Make it change UI (some flashing effect)
-
 @export var game_timer = 0  # how much time has elapsed since starting game
 @export var spawn_timer = 30  # how much time is remaining since next spawner
 @export var isRunning = true  # whether game is running or paused
@@ -58,18 +39,4 @@ func spawn_spawner():
 	new_spawner.init(spawn_location.position)
 	add_child(new_spawner)
 	print(new_spawner," was created.")
-
-
-
-func _on_player_mana_changed(newMana : int):
-	currentMana = newMana
-
-
-func _on_player_no_mana():
-	pass # Make it change UI (some flashing effect)
-
-
-func _on_player_projectile_shot(projectileName : Projectile):
-	projectileManager.add_child(projectileName)
-	projectileName.projectileOwner = $player
-
+	
