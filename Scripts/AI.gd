@@ -8,12 +8,12 @@ var entity : NPC = null
 var defaultTargetLocation : Vector2
 
 # Stuff related to local game state
-var nearbyEnemies : Array = []
-var enemiesInMeleeRange : Array = []
-var enemiesInRangedRange : Array = []
+var nearbyEnemies : Array[CharacterBody2D] = []
+var enemiesInMeleeRange : Array[CharacterBody2D] = []
+var enemiesInRangedRange : Array[CharacterBody2D] = []
 var closestEnemy : CharacterBody2D = null
 var moveTarget : Vector2
-var attackTarget : Vector2
+var attackTarget : CharacterBody2D
 
 var velocity : Vector2 = Vector2.ZERO
 
@@ -34,6 +34,7 @@ var canChangeState : bool = true
 
 func _physics_process(delta : float) -> void:
 	execute_state()
+	move_entity_to_target(delta)
 	if debugON:
 		var currState : String = ""
 		match currentState:
@@ -66,13 +67,21 @@ func set_nearby_enemy(targetID : CharacterBody2D) -> void:
 	closestEnemy = targetID
 
 
-func compare_target_distance(newTargetPos : Vector2):
-	var newTargetDistance : float = entity.global_position.distance_squared_to(newTargetPos)
-	if newTargetDistance < 0.0:
-		return
-	var currentTargetDistance : float = entity.global_position.distance_squared_to(closestEnemy.global_position)
-	if newTargetDistance < currentTargetDistance:
-		return true
+func get_closest_enemy() -> CharacterBody2D:
+	var closest_enemy : CharacterBody2D = null
+	var dist : float = -1
+	for enemy : CharacterBody2D in nearbyEnemies:
+		if !is_instance_valid(enemy):
+			continue
+		var d : float = global_transform.origin.distance_squared_to(enemy.global_transform.origin)
+		if dist < 0.0 or d < dist:
+			dist = d
+			closest_enemy = enemy
+	return closest_enemy
+
+
+func move_entity_to_target(delta : float) -> void:
+	entity.position += entity.currentSpeed * delta * moveTarget
 
 
 #region State Machine
@@ -95,6 +104,7 @@ func choose_state() -> void:
 		return
 	# Enemy in melee range = melee
 	if not enemiesInMeleeRange.is_empty() and entity.State_ATTACK_MELEE:
+		attackTarget = get_closest_enemy()
 		set_state(State.ATTACK_MELEE)
 	elif not enemiesInRangedRange.is_empty():
 		# Charge shares its range with ranged attacks
@@ -121,23 +131,32 @@ func execute_state() -> void:
 			pass
 		State.ATTACK_RANGE:
 			if closestEnemy != null:
+				closestEnemy = get_closest_enemy()
 				velocity = entity.stop_moving()
+				entity.set_target(closestEnemy.global_position)
 				entity.attack_ranged()
 		State.ATTACK_RANGE_SMART:
 			if closestEnemy != null:
+				closestEnemy = get_closest_enemy()
 				velocity = entity.stop_moving()
+				entity.set_target(closestEnemy.global_position)
 				entity.attack_ranged()
 		State.ATTACK_MELEE:
 			if closestEnemy != null:
+				closestEnemy = get_closest_enemy()
 				velocity = entity.stop_moving()
+				entity.set_target_melee(get_closest_enemy())
 				entity.attack_melee()
 		State.ATTACK_MELEE_CHARGE:
 			if closestEnemy != null:
+				closestEnemy = get_closest_enemy()
 				velocity = entity.stop_moving()
 				entity.attack_melee()
 		State.APPROACH_ENEMY:
 			if closestEnemy != null:
+				closestEnemy = get_closest_enemy()
 				velocity = entity.velocity_toward(closestEnemy.global_position)
+				entity.set_target(closestEnemy.global_position)
 				entity.move_and_slide()
 				choose_state()
 #endregion
@@ -148,6 +167,7 @@ func _on_character_detection_body_entered(body : CharacterBody2D) -> void:
 		pass
 	if body.has_method("get_team") and body.get_team() != entity.team:
 		nearbyEnemies.append(body)
+		closestEnemy = get_closest_enemy()
 		if canChangeState:
 			choose_state()
 
@@ -157,6 +177,7 @@ func _on_character_detection_body_exited(body : CharacterBody2D) -> void:
 		pass
 	if body.has_method("get_team") and body.get_team() != entity.team:
 		nearbyEnemies.erase(body)
+		closestEnemy = get_closest_enemy()
 		if canChangeState:
 			choose_state()
 
@@ -167,6 +188,7 @@ func _on_melee_range_body_entered(body : CharacterBody2D) -> void:
 		pass
 	if body.has_method("get_team") and body.get_team() != entity.team:
 		enemiesInMeleeRange.append(body)
+		closestEnemy = get_closest_enemy()
 		if canChangeState:
 			choose_state()
 
@@ -176,6 +198,7 @@ func _on_melee_range_body_exited(body : CharacterBody2D) -> void:
 		pass
 	if body.has_method("get_team") and body.get_team() != entity.team:
 		enemiesInMeleeRange.erase(body)
+		closestEnemy = get_closest_enemy()
 		if canChangeState:
 			choose_state()
 
@@ -185,6 +208,7 @@ func _on_ranged_range_body_entered(body : CharacterBody2D) -> void:
 		pass
 	if body.has_method("get_team") and body.get_team() != entity.team:
 		enemiesInRangedRange.append(body)
+		closestEnemy = get_closest_enemy()
 		if canChangeState:
 			choose_state()
 
@@ -194,5 +218,6 @@ func _on_ranged_range_body_exited(body : CharacterBody2D) -> void:
 		pass
 	if body.has_method("get_team") and body.get_team() != entity.team:
 		enemiesInRangedRange.erase(body)
+		closestEnemy = get_closest_enemy()
 		if canChangeState:
 			choose_state()
