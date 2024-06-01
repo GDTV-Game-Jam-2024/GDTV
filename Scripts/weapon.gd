@@ -15,6 +15,8 @@ signal canSwap
 
 var currentMana : int = 100
 var canShoot : bool = true
+var target : Vector2 = Vector2.ZERO
+var ownedByPlayer : bool = true
 
 
 func _ready() -> void:
@@ -22,13 +24,14 @@ func _ready() -> void:
 
 
 func _process(delta : float) -> void:
-	var mousePos = get_global_mouse_position()
-	look_at(mousePos)
-	if Input.is_action_pressed("shoot"):
-		if canShoot and currentMana >= manaCost:
-			shoot()
-		elif currentMana < manaCost:
-			outOfMana.emit()
+	look_at(target)
+	if ownedByPlayer:
+		target = get_global_mouse_position()
+		if Input.is_action_pressed("shoot"):
+			if canShoot and currentMana >= manaCost:
+				shoot()
+			elif currentMana < manaCost:
+				outOfMana.emit()
 
 
 func shoot() -> void:

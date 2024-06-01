@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://djmvmje8k5mgm"]
+[gd_scene load_steps=9 format=3 uid="uid://djmvmje8k5mgm"]
 
-[ext_resource type="Script" path="res://NPC.gd" id="1_b5m3u"]
+[ext_resource type="Script" path="res://Scripts/NPC.gd" id="1_b5m3u"]
 [ext_resource type="Texture2D" uid="uid://0jt78t6g8miv" path="res://icon.svg" id="2_1yvmg"]
-[ext_resource type="Script" path="res://AI.gd" id="3_utucg"]
+[ext_resource type="PackedScene" uid="uid://ohlhdt3pway8" path="res://Scenes/Weapons/weapon.tscn" id="2_uhhqj"]
+[ext_resource type="Script" path="res://Scripts/AI.gd" id="3_utucg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yl5l7"]
 radius = 102.13
@@ -19,6 +20,7 @@ radius = 424.01
 [node name="NPC" type="CharacterBody2D"]
 position = Vector2(306, 199)
 script = ExtResource("1_b5m3u")
+rangedWeapon = ExtResource("2_uhhqj")
 
 [node name="StateDebugInfo" type="Label" parent="."]
 offset_left = -49.0
@@ -57,9 +59,12 @@ debug_color = Color(0.497181, 0.575544, 0.25414, 0.42)
 [node name="AI" type="Node2D" parent="."]
 script = ExtResource("3_utucg")
 
+[node name="MeleeAttackCooldown" type="Timer" parent="."]
+
 [connection signal="body_entered" from="CharacterDetection" to="AI" method="_on_character_detection_body_entered"]
 [connection signal="body_exited" from="CharacterDetection" to="AI" method="_on_character_detection_body_exited"]
 [connection signal="body_entered" from="MeleeRange" to="AI" method="_on_melee_range_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="AI" method="_on_melee_range_body_exited"]
 [connection signal="body_entered" from="RangedRange" to="AI" method="_on_ranged_range_body_entered"]
 [connection signal="body_exited" from="RangedRange" to="AI" method="_on_ranged_range_body_exited"]
+[connection signal="timeout" from="MeleeAttackCooldown" to="." method="_on_melee_attack_cooldown_timeout"]
