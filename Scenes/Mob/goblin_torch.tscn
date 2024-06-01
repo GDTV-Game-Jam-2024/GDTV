@@ -1,53 +1,53 @@
 [gd_scene load_steps=20 format=3 uid="uid://caj8tp1yr1u6v"]
 
-[ext_resource type="Texture2D" uid="uid://beod12ge6hf0s" path="res://Sprites/goblin_torch.png" id="1_avhcc"]
+[ext_resource type="Texture2D" uid="uid://beod12ge6hf0s" path="res://Sprites/goblin_torch.png" id="1_xp1ai"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8nsn"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(0, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2e5ys"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(192, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4tyif"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(384, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_po1xr"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(576, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1bbv5"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(768, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0lu03"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(960, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r5jj"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(0, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0uk7"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(192, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_seqx6"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(384, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kta8u"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(576, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yga6k"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(768, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua381"]
-atlas = ExtResource("1_avhcc")
+atlas = ExtResource("1_xp1ai")
 region = Rect2(960, 192, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_34m42"]
