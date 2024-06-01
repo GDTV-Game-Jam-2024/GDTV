@@ -12,7 +12,6 @@ var nearbyEnemies : Array[CharacterBody2D] = []
 var enemiesInMeleeRange : Array[CharacterBody2D] = []
 var enemiesInRangedRange : Array[CharacterBody2D] = []
 var closestEnemy : CharacterBody2D = null
-var moveTarget : Vector2
 var attackTarget : CharacterBody2D
 
 var velocity : Vector2 = Vector2.ZERO
@@ -81,7 +80,7 @@ func get_closest_enemy() -> CharacterBody2D:
 
 
 func move_entity_to_target(delta : float) -> void:
-	entity.position += entity.currentSpeed * delta * moveTarget
+	entity.global_position += entity.currentSpeed * delta * velocity.normalized()
 
 
 #region State Machine
