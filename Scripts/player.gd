@@ -7,16 +7,17 @@ signal no_mana
 @export var movementSpeed : float = 1000.0
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
-@export var manaMax : float = 100.0
-@export var manaCurrent : float = 50.0
-@export var manaRegen : float = 10.0
+@export var manaMax : int = 500.0
+@export var manaCurrent : int = 50.0
+@export var manaRegen : int = 1
 @export var isAlive : bool = true
 @export var isWalking : bool = false
 
-@onready var weaponManager : Node2D = $WeaponManager
+@onready var weaponManager : Node2D = $WeaponManager as Node2D
+@onready var manaBar : ProgressBar = $Mana_bar as ProgressBar
 
 var team : String = "Player"
-var move_vector : Vector2 = Vector2.ZERO
+var moveVector : Vector2 = Vector2.ZERO
 enum CARDINAL_DIRECTION {N, NE, E, SE, S, SW, W, NW}
 
 # Wands that you have (index the same as in WeaponManager node)
@@ -33,7 +34,8 @@ func _ready() -> void:
 	for wand in weaponManager.get_children():
 		wand.connect("shotProjectile", _on_projectile_shot)
 		wand.connect("outOfMana", _on_out_of_mana)
-		wand.connect("canSwap", _on_out_of_mana)
+		wand.connect("canSwap", _on_can_swap)
+		wand.connect("manaChanged", _on_mana_changed)
 	# Remove all wands and add the basic wand
 	for wand in currentWands.size():
 		hide_wand(wand)
@@ -42,39 +44,34 @@ func _ready() -> void:
 #endregion
 	# initialize at center of screen
 	position = Vector2(1280*1.5,720*1.5)
-	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	update_mana_bar()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta : float) -> void:
 	# receive move input
-	move_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	if isAlive:
+		moveVector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 		# check if walking
-		if move_vector == Vector2.ZERO:
+		if moveVector == Vector2.ZERO:
 			isWalking = false
 		else:
 			isWalking = true
 
 		# sprite faces cursor
 		var angle : float = (get_viewport().get_mouse_position() - position).angle()
-		
 		# set animation
 		animate_sprite(angle, isWalking)
-
-	# kill if isAlive is set to false
-	else:
-		kill()
 
 
 # Like _process, but called every physics frame (60fps)
 func _physics_process(delta : float) -> void:
 	if isAlive:
 		# movement
-		position += move_vector.normalized() * movementSpeed * delta
+		position += moveVector.normalized() * movementSpeed * delta
 		
 		# mana regen
-		mana_gain(manaRegen*delta)
+		mana_gain(manaRegen)
 
 
 func _unhandled_input(event : InputEvent) -> void:
@@ -157,10 +154,14 @@ func unhide_wand(wandNumber : WANDS) -> void:
 	modifiedWand.set_process(true)
 
 
-func _on_projectile_shot(value, mana) -> void:
+func _on_projectile_shot(value : Projectile) -> void:
 	canChangeWand = false
 	projectile_shot.emit(value)
-	mana_changed.emit(mana)
+
+
+func _on_mana_changed(newMana : int) -> void:
+	mana_spend(manaCurrent - newMana)
+	mana_changed.emit(newMana)
 
 
 func _on_out_of_mana() -> void:
@@ -178,7 +179,7 @@ func damage(amount : int) -> void:
 	update_health_bar()
 	# check if dead
 	if healthCurrent <= 0:
-		isAlive = false
+		die()
 
 
 # Increase health
@@ -190,6 +191,10 @@ func heal(amount : int) -> void:
 		healthCurrent = healthMax
 
 
+func die() -> void:
+	isAlive = false
+
+
 # send healthMax and healthCurrent to $Health_bar
 func update_health_bar() -> void:
 	$Health_bar.max_value = healthMax
@@ -197,32 +202,27 @@ func update_health_bar() -> void:
 
 
 # gain mana
-func mana_gain(amount : float) -> void:
+func mana_gain(amount : int) -> void:
 	manaCurrent += amount
 	# prevent overcap, just set to max
 	if manaCurrent > manaMax:
 		manaCurrent = manaMax
+	var weapon : Wand = weaponManager.get_child(selectedWand) as Wand
+	weapon.set_mana(manaCurrent)
 	update_mana_bar()
 
 
-# checks if there's enough mana to spend, then spend it. If not enough, returns false
-func mana_spend(amount : float):
-	if manaCurrent > amount:  # spend mana if enough in pool
-		manaCurrent -= amount
-	else: 
-		return false
+# Reduce mana and update mana bar
+func mana_spend(amount : int):
+	manaCurrent -= amount
 	update_mana_bar()
-		
+
 
 # send manaMax and manaCurrent to $Mana_bar
 func update_mana_bar() -> void:
-	$Mana_bar.max_value=manaMax
-	$Mana_bar.value=manaCurrent
+	manaBar.max_value = manaMax
+	manaBar.value = manaCurrent
 
-# Called when character dies
-func kill() -> void:
-	print($".", "has died.")
-	# TODO: call end screen?
 
 
 # convert radian to one of 8 cardinal directions

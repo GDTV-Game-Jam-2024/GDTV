@@ -126,8 +126,8 @@ func execute_state() -> void:
 			pass
 		State.ATTACK_RANGE:
 			if closestEnemy != null:
-				entity.velocity = entity.stop_moving()
 				entity.set_target(closestEnemy.global_position)
+				entity.velocity = entity.stop_moving()
 				entity.attack_ranged()
 		State.ATTACK_MELEE:
 			if closestEnemy != null:
