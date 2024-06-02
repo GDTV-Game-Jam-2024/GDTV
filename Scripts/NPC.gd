@@ -1,6 +1,8 @@
 class_name NPC
 extends CharacterBody2D
 
+signal projectile_shot(projectile_name, projectileOwner)
+
 @onready var characterAI : AI = $AI
 @onready var stateInfo : Label = $StateDebugInfo
 
@@ -68,6 +70,7 @@ func prepare_weapon() -> void:
 	if !rangedWeapon == null:
 		loadedWeapon = rangedWeapon.instantiate() as Wand
 		add_child(loadedWeapon)
+		loadedWeapon.connect("shotProjectile", _on_shot_projectile)
 		loadedWeapon.ownedByPlayer = false
 
 
@@ -97,5 +100,10 @@ func set_debug_state_info(newText : String) -> void:
 	stateInfo.text = newText
 
 
-func _on_melee_attack_cooldown_timeout():
+func _on_melee_attack_cooldown_timeout() -> void:
 	canAttackMelee = true
+
+
+func _on_shot_projectile(projectile : Projectile, mana : int) -> void:
+	# Mana is unused, but there's no need to duplicate signal code
+	projectile_shot.emit(projectile, self)

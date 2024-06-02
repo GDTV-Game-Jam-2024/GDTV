@@ -54,13 +54,19 @@ func spawn_spawner() -> void:
 	print(new_spawner," was created.")
 
 
-func _on_enemy_created(enemy : CharacterBody2D) -> void:
+func _on_enemy_created(enemy : NPC) -> void:
 	creatureManager.add_child(enemy)
+	enemy.connect("projectile_shot", _on_npc_projectile_shot)
 
 
 func _on_projectile_shot(projectileName : Projectile) -> void:
 	projectileManager.add_child(projectileName)
-	projectileName.projectileOwner = $characterbody2d
+	projectileName.projectileOwner = $player
+
+
+func _on_npc_projectile_shot(projectileName : Projectile, projectileOwner : NPC) -> void:
+	projectileManager.add_child(projectileName)
+	projectileName.projectileOwner = projectileOwner
 
 
 func _on_mana_changed(newMana : int) -> void:
