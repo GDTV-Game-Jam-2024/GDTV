@@ -2,7 +2,8 @@ class_name Wand
 extends Node2D
 
 signal outOfMana
-signal shotProjectile(bullet, mana)
+signal shotProjectile(bullet)
+signal manaChanged
 signal canSwap
 
 @export var cooldown : float = 0.3
@@ -43,11 +44,13 @@ func shoot() -> void:
 
 
 func create_projectile() -> void:
-	var newProjectile : Projectile = projectile.instantiate() as Projectile
-	newProjectile.global_position = $Sprite2D/Marker2D.global_position
-	newProjectile.rotation_degrees = rotation_degrees + randf_range(-spread, spread)
-	shotProjectile.emit(newProjectile, currentMana)
-	newProjectile.set_team(team)
+	for shot in numberOfShots:
+		var newProjectile : Projectile = projectile.instantiate() as Projectile
+		
+		newProjectile.global_position = $Sprite2D/Marker2D.global_position
+		newProjectile.rotation_degrees = rotation_degrees + randf_range(-spread, spread)
+		shotProjectile.emit(newProjectile)
+		newProjectile.set_team(team)
 
 
 func set_team(teamName : String) -> void:
@@ -56,6 +59,7 @@ func set_team(teamName : String) -> void:
 
 func set_mana(newMana : int) -> void:
 	currentMana = newMana
+	manaChanged.emit(newMana)
 
 
 func _on_timer_timeout() -> void:

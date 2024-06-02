@@ -37,6 +37,7 @@ var canAttackMelee : bool = true
 var currentHP : int = 1
 var loadedWeapon : Wand = null
 var meleeTarget : CharacterBody2D = null
+var isAlive : bool = true
 
 func _ready() -> void:
 	characterAI.initialize_ai(self)
@@ -52,6 +53,17 @@ func get_team() -> String:
 
 func get_hp() -> int:
 	return currentHP
+
+
+func damage(amount: int) -> void:
+	currentHP = currentHP - amount
+	if currentHP <= 0:
+		die()
+
+
+func die() -> void:
+	isAlive = false
+	queue_free()
 
 
 func velocity_toward(location: Vector2) -> Vector2:
@@ -111,6 +123,5 @@ func _on_melee_attack_cooldown_timeout() -> void:
 	canAttackMelee = true
 
 
-func _on_shot_projectile(projectile : Projectile, mana : int) -> void:
-	# Mana is unused, but there's no need to duplicate signal code
+func _on_shot_projectile(projectile : Projectile) -> void:
 	projectile_shot.emit(projectile, self)

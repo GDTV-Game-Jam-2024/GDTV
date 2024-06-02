@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://ohlhdt3pway8" path="res://Scenes/Weapons/weapon.tscn" id="1_8om6n"]
 
 [node name="WandFireball" instance=ExtResource("1_8om6n")]
+team = "Player"

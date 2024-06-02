@@ -26,8 +26,8 @@ func _on_collision_area_body_entered(body : CharacterBody2D) -> void:
 	# If target is teamless or on the same team return early
 	if !body.has_method("get_team") or body.get_team() == team :
 		return
-	if body.has_method("take_damage"):
-		body.take_damage(damage)
+	if body.has_method("damage"):
+		body.damage(damage)
 	if penetrationNumber > 0:
 		penetrationNumber -= 1
 	else:

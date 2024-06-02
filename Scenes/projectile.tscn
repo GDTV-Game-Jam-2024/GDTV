@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_qncly"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ldumk"]
-size = Vector2(50, 50)
+size = Vector2(50, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg3sc"]
 size = Vector2(20, 10)
