@@ -11,7 +11,7 @@ signal spawnedEnemy(enemy)
 @export var health : int = 20  # how much damage it can take
 @export var isAlive : bool = true
 
-var goblin : PackedScene = load("res://Scenes/Entities/Goblin.tscn")
+var goblin : PackedScene = load("res://Scenes/Entities/Goblin.tscn") as PackedScene
 
 
 # allows initialization with coordinates
