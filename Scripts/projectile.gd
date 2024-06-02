@@ -2,11 +2,11 @@ class_name Projectile
 extends Node2D
 
 # Basic Stats
-var team : String = ""
-var damage : int = 5
-var speed : float = 500
-var lifetime : float = 2.5
-var penetrationNumber : int = 0
+@export var team : String = ""
+@export var damage : int = 5
+@export var speed : float = 500
+@export var lifetime : float = 2.5
+@export var penetrationNumber : int = 0
 
 var projectileOwner : CharacterBody2D = null
 var targetsHit : Array[CharacterBody2D] = []
