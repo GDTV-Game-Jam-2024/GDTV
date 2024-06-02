@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvc238h4atmg1"]
+
+[ext_resource type="PackedScene" uid="uid://djmvmje8k5mgm" path="res://Scenes/Entities/NPC.tscn" id="1_d5yqo"]
+[ext_resource type="Texture2D" uid="uid://by8elav3rp0m8" path="res://Sprites/skeleton_archer.png" id="2_7qvt0"]
+[ext_resource type="PackedScene" uid="uid://bbyi2gaabt5st" path="res://Scenes/Weapons/enemy_wand_skeleton.tscn" id="2_otmkc"]
+
+[node name="NPC" instance=ExtResource("1_d5yqo")]
+statMovementSpeed = 100.0
+statMaxHP = 1
+meleeAttackCooldown = 1.5
+meleeChargeHealthThreshold = 0
+meleeChanceForCharge = 0
+meleeChargeSpeed = 200.0
+rangedWeapon = ExtResource("2_otmkc")
+rangedChanceForSmart = 0
+State_ATTACK_MELEE = false
+State_ATTACK_MELEE_CHARGE = false
+
+[node name="Sprite2D" parent="." index="2"]
+visible = true
+position = Vector2(0, -0.25)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_7qvt0")

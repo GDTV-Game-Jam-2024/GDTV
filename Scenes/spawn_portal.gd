@@ -8,19 +8,21 @@ signal spawnedEnemy(enemy)
 @export var spawnTimer : float = 7  # how much time left until next spawn
 @export var spawnPower : int = 10  # how many enemies get spawned per cycle
 @export var spawnCounter : int = 0  # how many enemies were spawned this cycle
-@export var health : int = 20  # how much damage it can take
+@export var health : int = 200  # how much damage it can take
 @export var isAlive : bool = true
 
 var goblin : PackedScene = load("res://Scenes/Entities/Goblin.tscn") as PackedScene
+var skeletonArcher : PackedScene = load("res://Scenes/Entities/Skeleton_Archer.tscn") as PackedScene
 
 
 # allows initialization with coordinates
 func init(coordinates : Vector2) -> void:
 	global_position = coordinates
-	spawnTimer = 3
+	spawnTimer = 7
 	spawnPower = 10
 	health = 20
 	isAlive = true
+
 
 func _ready() -> void:
 	pass
@@ -37,9 +39,7 @@ func _physics_process(delta : float) -> void:
 	else:
 		kill()
 	
-
 	if spawnTimer < 0:
-
 		spawnCycle()
 
 
@@ -54,21 +54,21 @@ func spawnCycle() -> void:
 	if spawnPower < 20 : 
 		while spawnCounter < spawnPower: 
 			spawn_enemy(goblin)
-			spawnCounter += 2
+			spawnCounter += 5
+			# TODO: move power value for spawnCounter into NPC as an export
 	elif spawnPower < 50:
 		while spawnCounter < spawnPower: 
 			spawn_enemy(goblin)
-			spawnCounter += 2
-			print("spawning an archer")
-			spawnCounter += 4
+			spawnCounter += 5
+			spawn_enemy(skeletonArcher)
+			spawnCounter += 15
 	elif spawnPower < 100: 
 		while spawnCounter < spawnPower:
 			spawn_enemy(goblin)
 			spawnCounter += 2
 			spawn_enemy(goblin)
 			spawnCounter += 2
-
-			print("spawning an archer")
+			spawn_enemy(skeletonArcher)
 			spawnCounter += 4
 			print("spawning a giant")
 			spawnCounter += 10
@@ -83,7 +83,7 @@ func spawnCycle() -> void:
 	spawnTimer = spawnTimer + spawnTimerMax	
 
 
-func spawn_enemy(enemyType) -> void:
+func spawn_enemy(enemyType: PackedScene) -> void:
 	var spawn_location : PathFollow2D = $SummonPath/PathFollow2D as PathFollow2D
 	spawn_location.progress_ratio = randf()
 	print("Spawn Location set to ", spawn_location.position)
@@ -92,19 +92,6 @@ func spawn_enemy(enemyType) -> void:
 	spawnedEnemy.emit(newEnemy)
 	newEnemy.global_position = spawn_location.global_position
 	print(newEnemy," was created.")
-
-
-
-# TODO: does this bind the goblin to the spawn portal?
-func spawn_goblin():
-	var spawn_location = $SummonPath/PathFollow2D
-	spawn_location.progress_ratio = randf()
-	print("Spawn Location set to ", spawn_location.position)
-	
-	var new_goblin = goblin.instantiate()
-	new_goblin.init(spawn_location.position)
-	add_child(new_goblin)
-	print(new_goblin," was created.")
 
 
 # called when isAlive is set to false
