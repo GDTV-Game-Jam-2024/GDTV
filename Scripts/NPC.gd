@@ -38,7 +38,6 @@ var currentHP : int = 1
 var loadedWeapon : Wand = null
 var meleeTarget : CharacterBody2D = null
 
-
 func _ready() -> void:
 	characterAI.initialize_ai(self)
 	currentSpeed = statMovementSpeed
