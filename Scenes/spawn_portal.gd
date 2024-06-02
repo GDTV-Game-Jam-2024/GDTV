@@ -1,77 +1,98 @@
+class_name Spawner
 extends CharacterBody2D
 
-@export var spawn_timer_max = 7  # how often it spawns enemies
-@export var spawn_timer = 7  # how much time left until next spawn
-@export var spawn_power = 10  # how many enemies get spawned per cycle
-@export var spawn_counter = 0  # how many enemies were spawned this cycle
-@export var health = 20  # how much damage it can take
-@export var isAlive = true
+signal spawnedEnemy(enemy)
 
-var goblin = load("res://Scenes/Mob/goblin_torch.tscn")
+
+@export var spawnTimerMax : float = 7  # how often it spawns enemies
+@export var spawnTimer : float = 7  # how much time left until next spawn
+@export var spawnPower : int = 10  # how many enemies get spawned per cycle
+@export var spawnCounter : int = 0  # how many enemies were spawned this cycle
+@export var health : int = 20  # how much damage it can take
+@export var isAlive : bool = true
+
+var goblin : PackedScene = load("res://Scenes/Entities/Goblin.tscn")
+
 
 # allows initialization with coordinates
-func init(coordinates):
-	position = coordinates
-	spawn_timer = 3
-	spawn_power = 10
+func init(coordinates : Vector2) -> void:
+	global_position = coordinates
+	spawnTimer = 3
+	spawnPower = 10
 	health = 20
 	isAlive = true
 
-func _onready():
+func _ready() -> void:
 	pass
 
 
-func _process(delta):
+func _process(delta : float) -> void:
 	$AnimationPlayer.play("default", -1, -3, true)
 	if health <= 0 : isAlive = false
 
 
-func _physics_process(delta):
+func _physics_process(delta : float) -> void:
 	if isAlive:
-		spawn_timer = spawn_timer - delta
+		spawnTimer -= delta
 	else:
 		kill()
 	
-	if spawn_timer<0:
+
+	if spawnTimer < 0:
+
 		spawnCycle()
 
 
 # spawn new set of units every cycle
-func spawnCycle():
+func spawnCycle() -> void:
+
 	print($"."," spawned units.")
 	
 	# TODO: spawn enemies
 	# following are placeholder values for testing. Actual balancing still needed
 	# print functions should be replaced with actual spawn logic
-	if spawn_power < 20 : 
-		while spawn_counter < spawn_power : 
-			spawn_goblin()
-			spawn_counter += 2
-	elif spawn_power < 50 :
-		while spawn_counter < spawn_power : 
-			spawn_goblin()
-			spawn_counter += 2
+	if spawnPower < 20 : 
+		while spawnCounter < spawnPower: 
+			spawn_enemy()
+			spawnCounter += 2
+	elif spawnPower < 50:
+		while spawnCounter < spawnPower: 
+			spawn_enemy()
+			spawnCounter += 2
 			print("spawning an archer")
-			spawn_counter += 4
-	elif spawn_power < 100 : 
-		while spawn_counter < spawn_power :
-			spawn_goblin()
-			spawn_counter += 2
-			spawn_goblin()
-			spawn_counter += 2
+			spawnCounter += 4
+	elif spawnPower < 100: 
+		while spawnCounter < spawnPower:
+			spawn_enemy()
+			spawnCounter += 2
+			spawn_enemy()
+			spawnCounter += 2
+
 			print("spawning an archer")
-			spawn_counter += 4
+			spawnCounter += 4
 			print("spawning a giant")
-			spawn_counter += 10
+			spawnCounter += 10
 	
 	# reset spawn_counter
-	spawn_counter = 0
+	spawnCounter = 0
 
 	# raise power after every summon
-	spawn_power += 10
+	spawnPower += 10
 
 	# reset spawn timer
-	spawn_timer = spawn_timer+spawn_timer_max	
+	spawnTimer = spawnTimer + spawnTimerMax	
+
+
+func spawn_enemy() -> void:
+	var spawn_location : PathFollow2D = $SummonPath/PathFollow2D as PathFollow2D
+	spawn_location.progress_ratio = randf()
+	print("Spawn Location set to ", spawn_location.position)
+	
+	var newEnemy : NPC = goblin.instantiate() as NPC
+	spawnedEnemy.emit(newEnemy)
+	newEnemy.global_position = spawn_location.global_position
+	print(newEnemy," was created.")
+
 
 
 # TODO: does this bind the goblin to the spawn portal?
@@ -87,6 +108,6 @@ func spawn_goblin():
 
 
 # called when isAlive is set to false
-func kill():
+func kill() -> void:
 	print("killed", $".")
 	pass

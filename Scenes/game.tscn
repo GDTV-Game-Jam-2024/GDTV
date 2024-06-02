@@ -373,3 +373,5 @@ curve = SubResource("Curve2D_q0mph")
 position = Vector2(640, 360)
 
 [node name="ProjectileManager" type="Node2D" parent="."]
+
+[node name="CreatureManager" type="Node2D" parent="."]
