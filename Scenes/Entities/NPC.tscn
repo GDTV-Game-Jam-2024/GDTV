@@ -20,6 +20,7 @@ radius = 424.01
 [node name="NPC" type="CharacterBody2D"]
 position = Vector2(306, 199)
 script = ExtResource("1_b5m3u")
+meleeChargeHealthThreshold = 100
 rangedWeapon = ExtResource("2_uhhqj")
 
 [node name="StateDebugInfo" type="Label" parent="."]
@@ -44,16 +45,19 @@ texture = ExtResource("2_1yvmg")
 shape = SubResource("CircleShape2D_yl5l7")
 
 [node name="CharacterDetection" type="Area2D" parent="."]
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterDetection"]
 shape = SubResource("CircleShape2D_y0kkt")
 
 [node name="MeleeRange" type="Area2D" parent="."]
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 shape = SubResource("CircleShape2D_qrmbt")
 
 [node name="RangedRange" type="Area2D" parent="."]
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangedRange"]
 shape = SubResource("CircleShape2D_rf83c")

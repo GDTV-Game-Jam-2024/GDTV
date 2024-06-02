@@ -17,7 +17,8 @@ signal projectile_shot(projectile_name, projectileOwner)
 @export var meleeAttackCooldown : float = 0.8
 @export var meleeChargeHealthThreshold : int = 10
 @export var meleeChanceForCharge : int = 100
-@export var meleeChargeDamage : int = 15
+@export var meleeChargeDamage : int = 30
+@export var meleeChargeSpeed : float = 600.0
 
 @export_group("Ranged Stats", "ranged")
 @export var rangedWeapon : PackedScene
@@ -54,8 +55,12 @@ func get_hp() -> int:
 	return currentHP
 
 
-func velocity_toward(location: Vector2):
+func velocity_toward(location: Vector2) -> Vector2:
 	return global_position.direction_to(location) * currentSpeed
+
+
+func charge_toward(location: Vector2) -> Vector2:
+	return global_position.direction_to(location) * meleeChargeSpeed
 
 
 func stop_moving() -> Vector2:
@@ -88,7 +93,10 @@ func attack_melee() -> void:
 
 func attack_charge() -> void:
 	if canAttackMelee:
-		canAttackMelee = false
+		if meleeTarget.has_method("damage"):
+			meleeTarget.damage(meleeChargeDamage)
+			canAttackMelee = false
+			$MeleeAttackCooldown.start()
 
 
 func attack_ranged() -> void:
