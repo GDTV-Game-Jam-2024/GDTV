@@ -15,7 +15,6 @@ var closestEnemy : CharacterBody2D = null
 var attackTarget : CharacterBody2D
 var attackLocation : Vector2 = Vector2.ZERO
 
-var velocity : Vector2 = Vector2.ZERO
 
 # Stuff for state machine
 enum State {
@@ -42,8 +41,6 @@ func _physics_process(delta : float) -> void:
 				currState = "PASSIVE"
 			State.ATTACK_RANGE:
 				currState = "ATTACK_RANGE"
-			State.ATTACK_RANGE_SMART:
-				currState = "ATTACK_RANGE_SMART"
 			State.ATTACK_MELEE:
 				currState = "ATTACK_MELEE"
 			State.ATTACK_MELEE_CHARGE:
@@ -80,8 +77,9 @@ func get_closest_enemy() -> CharacterBody2D:
 	return closest_enemy
 
 
+
 func move_entity_to_target(delta : float) -> void:
-	entity.global_position += entity.currentSpeed * delta * velocity.normalized()
+	entity.global_position += entity.currentSpeed * delta * entity.velocity.normalized()
 
 
 #region State Machine
@@ -97,7 +95,6 @@ func block_state_change(value : bool) -> void:
 
 func choose_state() -> void:
 	var chanceRollCharge : int = randi_range(1, 101)
-	var chanceRollSmartRange : int = randi_range(1, 101)
 	# No enemies = go to the portal if can move
 	if nearbyEnemies.is_empty() and entity.State_GO_TO_DEFAULT_TARGET:
 		set_state(State.GO_TO_DEFAULT_TARGET)
@@ -112,9 +109,6 @@ func choose_state() -> void:
 		if entity.State_ATTACK_MELEE_CHARGE and entity.meleeChanceForCharge < chanceRollCharge:
 			attackLocation = get_closest_enemy().global_position
 			set_state(State.ATTACK_MELEE_CHARGE)
-		# Try to shoot in the place enemy will stand
-		elif entity.State_ATTACK_RANGE_SMART and entity.rangedChanceForSmart < chanceRollSmartRange:
-			set_state(State.ATTACK_RANGE_SMART)
 		# Just shoot
 		elif entity.State_ATTACK_RANGE:
 			set_state(State.ATTACK_RANGE)
@@ -132,24 +126,19 @@ func execute_state() -> void:
 			pass
 		State.ATTACK_RANGE:
 			if closestEnemy != null:
-				velocity = entity.stop_moving()
-				entity.set_target(closestEnemy.global_position)
-				entity.attack_ranged()
-		State.ATTACK_RANGE_SMART:
-			if closestEnemy != null:
-				velocity = entity.stop_moving()
+				entity.velocity = entity.stop_moving()
 				entity.set_target(closestEnemy.global_position)
 				entity.attack_ranged()
 		State.ATTACK_MELEE:
 			if closestEnemy != null:
-				velocity = entity.stop_moving()
+				entity.velocity = entity.stop_moving()
 				entity.set_target_melee(get_closest_enemy())
 				entity.attack_melee()
 		State.ATTACK_MELEE_CHARGE:
 			if closestEnemy != null:
 				canChangeState = false
 				# Force charge to completion
-				velocity = entity.charge_toward(attackLocation)
+				entity.velocity = entity.charge_toward(attackLocation)
 				var distanceToChargeLocation : float = global_position.distance_squared_to(attackLocation)
 				var minimalDistance : float = 10.0
 				# Stop charge close to end location
@@ -162,7 +151,7 @@ func execute_state() -> void:
 					choose_state()
 		State.APPROACH_ENEMY:
 			if closestEnemy != null:
-				velocity = entity.velocity_toward(closestEnemy.global_position)
+				entity.velocity = entity.velocity_toward(closestEnemy.global_position)
 				entity.set_target(closestEnemy.global_position)
 				entity.move_and_slide()
 				choose_state()

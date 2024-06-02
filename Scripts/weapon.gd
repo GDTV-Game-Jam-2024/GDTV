@@ -17,6 +17,7 @@ var currentMana : int = 100
 var canShoot : bool = true
 var target : Vector2 = Vector2.ZERO
 var ownedByPlayer : bool = true
+var projectileSpeed : float = 0.0
 
 
 func _ready() -> void:
@@ -42,7 +43,7 @@ func shoot() -> void:
 
 
 func create_projectile() -> void:
-	var newProjectile : Node2D = projectile.instantiate() as Projectile
+	var newProjectile : Projectile = projectile.instantiate() as Projectile
 	newProjectile.global_position = $Sprite2D/Marker2D.global_position
 	newProjectile.rotation_degrees = rotation_degrees + randf_range(-spread, spread)
 	shotProjectile.emit(newProjectile, currentMana)
