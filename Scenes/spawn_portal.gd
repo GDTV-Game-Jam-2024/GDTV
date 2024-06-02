@@ -53,19 +53,19 @@ func spawnCycle() -> void:
 	# print functions should be replaced with actual spawn logic
 	if spawnPower < 20 : 
 		while spawnCounter < spawnPower: 
-			spawn_enemy()
+			spawn_enemy(goblin)
 			spawnCounter += 2
 	elif spawnPower < 50:
 		while spawnCounter < spawnPower: 
-			spawn_enemy()
+			spawn_enemy(goblin)
 			spawnCounter += 2
 			print("spawning an archer")
 			spawnCounter += 4
 	elif spawnPower < 100: 
 		while spawnCounter < spawnPower:
-			spawn_enemy()
+			spawn_enemy(goblin)
 			spawnCounter += 2
-			spawn_enemy()
+			spawn_enemy(goblin)
 			spawnCounter += 2
 
 			print("spawning an archer")
@@ -83,12 +83,12 @@ func spawnCycle() -> void:
 	spawnTimer = spawnTimer + spawnTimerMax	
 
 
-func spawn_enemy() -> void:
+func spawn_enemy(enemyType) -> void:
 	var spawn_location : PathFollow2D = $SummonPath/PathFollow2D as PathFollow2D
 	spawn_location.progress_ratio = randf()
 	print("Spawn Location set to ", spawn_location.position)
 	
-	var newEnemy : NPC = goblin.instantiate() as NPC
+	var newEnemy : NPC = enemyType.instantiate() as NPC
 	spawnedEnemy.emit(newEnemy)
 	newEnemy.global_position = spawn_location.global_position
 	print(newEnemy," was created.")

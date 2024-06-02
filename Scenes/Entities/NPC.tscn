@@ -6,19 +6,18 @@
 [ext_resource type="Script" path="res://Scripts/AI.gd" id="3_utucg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yl5l7"]
-radius = 102.13
+radius = 27.0185
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y0kkt"]
 radius = 700.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qrmbt"]
-radius = 153.55
+radius = 41.4367
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rf83c"]
 radius = 424.01
 
 [node name="NPC" type="CharacterBody2D"]
-position = Vector2(306, 199)
 script = ExtResource("1_b5m3u")
 meleeChargeHealthThreshold = 100
 rangedWeapon = ExtResource("2_uhhqj")
@@ -34,6 +33,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
