@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://caj8tp1yr1u6v"]
+[gd_scene load_steps=21 format=3 uid="uid://caj8tp1yr1u6v"]
 
 [ext_resource type="Texture2D" uid="uid://beod12ge6hf0s" path="res://Sprites/goblin_torch.png" id="1_xp1ai"]
+[ext_resource type="Script" path="res://Scripts/AI.gd" id="2_llqij"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8nsn"]
 atlas = ExtResource("1_xp1ai")
@@ -197,3 +198,6 @@ libraries = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5slf8")
+
+[node name="AI" type="Node2D" parent="."]
+script = ExtResource("2_llqij")
