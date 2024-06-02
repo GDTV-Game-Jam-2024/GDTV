@@ -5,6 +5,7 @@ extends Node2D
 @export var spawnFrequency : float = 30  # how much time between spawners spawn
 @export var isRunning : bool = true  # whether game is running or paused
 
+
 @onready var projectileManager : Node2D = $ProjectileManager
 @onready var creatureManager : Node2D = $CreatureManager
 @onready var player : CharacterBody2D = $player
@@ -27,10 +28,12 @@ func _process(delta : float) -> void:
 		gameTimer += delta
 	pass
 
+
 func _physics_process(delta : float) -> void:
 	spawnTimer -= delta
 	if spawnTimer <= 0:  # reset spawn_timer and spanws a timer
 		spawnTimer += spawnFrequency
+
 		spawn_spawner()
 	pass
 
