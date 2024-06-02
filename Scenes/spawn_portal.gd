@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var health = 20  # how much damage it can take
 @export var isAlive = true
 
+var goblin = load("res://Scenes/Mob/goblin_torch.tscn")
 
 # allows initialization with coordinates
 func init(coordinates):
@@ -32,11 +33,11 @@ func _physics_process(delta):
 		kill()
 	
 	if spawn_timer<0:
-		spawn()
+		spawnCycle()
 
 
 # spawn new set of units every cycle
-func spawn():
+func spawnCycle():
 	print($"."," spawned units.")
 	
 	# TODO: spawn enemies
@@ -44,19 +45,19 @@ func spawn():
 	# print functions should be replaced with actual spawn logic
 	if spawn_power < 20 : 
 		while spawn_counter < spawn_power : 
-			print("spawning a goblin")
+			spawn_goblin()
 			spawn_counter += 2
 	elif spawn_power < 50 :
 		while spawn_counter < spawn_power : 
-			print("spawning a goblin")
+			spawn_goblin()
 			spawn_counter += 2
 			print("spawning an archer")
 			spawn_counter += 4
 	elif spawn_power < 100 : 
 		while spawn_counter < spawn_power :
-			print("spawning a goblin")
+			spawn_goblin()
 			spawn_counter += 2
-			print("spawning a goblin")
+			spawn_goblin()
 			spawn_counter += 2
 			print("spawning an archer")
 			spawn_counter += 4
@@ -71,6 +72,19 @@ func spawn():
 
 	# reset spawn timer
 	spawn_timer = spawn_timer+spawn_timer_max	
+
+
+# TODO: does this bind the goblin to the spawn portal?
+func spawn_goblin():
+	var spawn_location = $SummonPath/PathFollow2D
+	spawn_location.progress_ratio = randf()
+	print("Spawn Location set to ", spawn_location.position)
+	
+	var new_goblin = goblin.instantiate()
+	new_goblin.init(spawn_location.position)
+	add_child(new_goblin)
+	print(new_goblin," was created.")
+
 
 # called when isAlive is set to false
 func kill():
