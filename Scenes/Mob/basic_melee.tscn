@@ -1,55 +1,108 @@
-[gd_scene load_steps=21 format=3 uid="uid://caj8tp1yr1u6v"]
+[gd_scene load_steps=22 format=3 uid="uid://belpyeyu1e6l0"]
 
-[ext_resource type="Script" path="res://Scenes/Mob/goblin_torch.gd" id="1_f8p63"]
-[ext_resource type="Texture2D" uid="uid://beod12ge6hf0s" path="res://Sprites/goblin_torch.png" id="1_xp1ai"]
+[ext_resource type="Texture2D" uid="uid://beod12ge6hf0s" path="res://Sprites/goblin_torch.png" id="1_1qi2v"]
+
+[sub_resource type="GDScript" id="GDScript_yxmwn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ujmpt"]
+radius = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8nsn"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(0, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2e5ys"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(192, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4tyif"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(384, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_po1xr"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(576, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1bbv5"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(768, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0lu03"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(960, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r5jj"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(0, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0uk7"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(192, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_seqx6"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(384, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kta8u"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(576, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yga6k"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(768, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua381"]
-atlas = ExtResource("1_xp1ai")
+atlas = ExtResource("1_1qi2v")
 region = Rect2(960, 192, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fymvg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8nsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2e5ys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tyif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po1xr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bbv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lu03")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5jj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0uk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seqx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kta8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yga6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua381")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_34m42"]
 animations = [{
@@ -181,21 +234,18 @@ _data = {
 "Walk": SubResource("Animation_tjeo0")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5slf8"]
-radius = 16.0
+[node name="BasicMelee" type="CharacterBody2D"]
+script = SubResource("GDScript_yxmwn")
 
-[node name="goblin_torch" type="CharacterBody2D"]
-script = ExtResource("1_f8p63")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ujmpt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_34m42")
+sprite_frames = SubResource("SpriteFrames_fymvg")
 animation = &"Attack"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_uutte")
 }
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_5slf8")

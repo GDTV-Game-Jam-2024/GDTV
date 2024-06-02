@@ -966,3 +966,7 @@ libraries = {
 
 [node name="SummonPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_qe5kc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="SummonPath"]
+position = Vector2(0, -75)
+rotation = 0.244979
