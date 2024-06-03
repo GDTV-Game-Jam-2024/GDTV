@@ -6,10 +6,9 @@ extends Node2D
 @export var isRunning : bool = true  # whether game is running or paused
 
 
-@onready var projectileManager : Node2D = $ProjectileManager as Node2D
-@onready var creatureManager : Node2D = $CreatureManager as Node2D
-@onready var player : CharacterBody2D = $player as CharacterBody2D
-@onready var ui : UI = $UI as UI
+@onready var projectileManager : Node2D = $ProjectileManager
+@onready var creatureManager : Node2D = $CreatureManager
+@onready var player : CharacterBody2D = $player
 
 var spawner : PackedScene = load("res://Scenes/spawn_portal.tscn")
 var currentMana : int = 0
@@ -21,8 +20,6 @@ func _ready() -> void:
 	player.connect("projectile_shot", _on_projectile_shot)
 	player.connect("mana_changed", _on_mana_changed)
 	player.connect("no_mana", _on_no_mana)
-	ui.set_minimap_dimension(24, 13.5)
-	ui.add_unit_to_minimap(player, UI.ENTITIES.PLAYER)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -59,7 +56,6 @@ func spawn_spawner() -> void:
 
 func _on_enemy_created(enemy : NPC) -> void:
 	creatureManager.add_child(enemy)
-	ui.add_unit_to_minimap(enemy, ui.ENTITIES.ENEMY)
 	enemy.connect("projectile_shot", _on_npc_projectile_shot)
 
 
@@ -74,9 +70,7 @@ func _on_npc_projectile_shot(projectileName : Projectile, projectileOwner : NPC)
 
 
 func _on_mana_changed(newMana : int) -> void:
-	currentMana = newMana
-	# Change mana in ui
-	ui.set_mana(newMana)
+	currentMana = newMana # Change mana in ui
 
 
 func _on_no_mana() -> void:
