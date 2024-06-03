@@ -13,6 +13,7 @@ signal spawnedEnemy(enemy)
 
 var goblin : PackedScene = load("res://Scenes/Entities/Goblin.tscn") as PackedScene
 var skeletonArcher : PackedScene = load("res://Scenes/Entities/Skeleton_Archer.tscn") as PackedScene
+var giant : PackedScene = load("res://Scenes/Entities/Giant.tscn") as PackedScene
 
 
 # allows initialization with coordinates
@@ -70,7 +71,7 @@ func spawnCycle() -> void:
 			spawnCounter += 2
 			spawn_enemy(skeletonArcher)
 			spawnCounter += 4
-			print("spawning a giant")
+			spawn_enemy(giant)
 			spawnCounter += 10
 	
 	# reset spawn_counter
