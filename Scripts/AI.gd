@@ -1,7 +1,7 @@
 class_name AI
 extends Node2D
 
-var debugON : bool = true
+var debugON : bool = false
 
 # Values set at the start
 var entity : NPC = null
