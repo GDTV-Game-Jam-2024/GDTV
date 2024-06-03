@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal projectile_shot(projectileName)
 signal mana_changed(newMana)
 signal no_mana
+signal dead(who)
 
 @export var movementSpeed : float = 300.0
 @export var healthMax : int = 100
@@ -193,6 +194,7 @@ func heal(amount : int) -> void:
 
 func die() -> void:
 	isAlive = false
+	dead.emit(self)
 
 
 # send healthMax and healthCurrent to $Health_bar

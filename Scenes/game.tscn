@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlrbxtqn0y3jm"]
+[gd_scene load_steps=10 format=3 uid="uid://dlrbxtqn0y3jm"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_3w7sm"]
 [ext_resource type="PackedScene" uid="uid://cek5sqgdxjiga" path="res://Scenes/player.tscn" id="2_ul243"]
 [ext_resource type="Texture2D" uid="uid://c53h581wb5u0x" path="res://Sprites/Desert Tileset.png" id="3_apitf"]
 [ext_resource type="Texture2D" uid="uid://cnjwyp12528eu" path="res://Sprites/Pedestal.png" id="4_rsdlk"]
 [ext_resource type="PackedScene" uid="uid://c432a3tfgao7l" path="res://Scenes/Entities/FriendlyPortal.tscn" id="5_2u6hb"]
+[ext_resource type="PackedScene" uid="uid://hkikhat7wd5l" path="res://Scenes/UI.tscn" id="6_4jpyb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ff2i"]
 texture = ExtResource("3_apitf")
@@ -388,3 +389,7 @@ position = Vector2(640, 360)
 
 [node name="NPC" parent="." instance=ExtResource("5_2u6hb")]
 position = Vector2(1920, 1082)
+
+
+[node name="UI" parent="." instance=ExtResource("6_4jpyb")]
+
