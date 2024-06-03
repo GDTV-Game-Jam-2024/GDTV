@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://hhtvduv306hg"]
+[gd_scene load_steps=3 format=3 uid="uid://hhtvduv306hg"]
 
 [ext_resource type="PackedScene" uid="uid://d08f4mk50jrpc" path="res://Scenes/Pickups/pickup.tscn" id="1_656ph"]
+[ext_resource type="Texture2D" uid="uid://bwxu5aqhna71q" path="res://Sprites/restorationPotion.png" id="2_fbopj"]
 
 [node name="RestorationPotion" instance=ExtResource("1_656ph")]
 restoreHP = 20
 restoreMana = 40
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_fbopj")

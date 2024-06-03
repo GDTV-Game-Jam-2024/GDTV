@@ -37,9 +37,33 @@ func _physics_process(delta : float) -> void:
 	spawnTimer -= delta
 	if spawnTimer <= 0:  # reset spawn_timer and spanws a timer
 		spawnTimer += spawnFrequency
-
 		spawn_spawner()
 	pass
+
+
+func drop_pickup(location : Vector2) -> void:
+	var chance : int = randi_range(0, 100)
+	if chance < 60:
+		return
+	var pickup : PackedScene
+	var newPickup : Pickup
+	if chance < 75:
+		pickup = load("res://Scenes/Pickups/food.tscn") as PackedScene
+		newPickup = pickup.instantiate() as Pickup
+	if chance < 81:
+		pickup = load("res://Scenes/Pickups/health_potion.tscn") as PackedScene
+		newPickup = pickup.instantiate() as Pickup
+	if chance < 87:
+		pickup = load("res://Scenes/Pickups/mana_potion.tscn") as PackedScene
+		newPickup = pickup.instantiate() as Pickup
+	if chance < 93:
+		pickup = load("res://Scenes/Pickups/restoration_potion.tscn") as PackedScene
+		newPickup = pickup.instantiate() as Pickup
+	else:
+		pickup = load("res://Scenes/Pickups/new_wand.tscn") as PackedScene
+		newPickup = pickup.instantiate() as Pickup
+	pickupsManager.add_child(newPickup)
+	newPickup.global_position = location
 
 
 # called to create a spawn_portal
@@ -66,7 +90,10 @@ func _on_enemy_created(enemy : NPC) -> void:
 
 
 func _on_entity_dead(actor : CharacterBody2D) -> void:
+	if actor is NPC:
+		drop_pickup(actor.global_position)
 	ui.remove_unit_from_minimap(actor)
+	actor.queue_free()
 
 
 func _on_projectile_shot(projectileName : Projectile) -> void:

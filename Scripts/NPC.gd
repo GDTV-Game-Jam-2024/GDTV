@@ -68,7 +68,7 @@ func die() -> void:
 	isAlive = false
 	Audio.play(Audio.enemyDead)
 	dead.emit(self)
-	queue_free()
+	#call_deferred("queue_free") Moved to creature manager
 
 
 func velocity_toward(location: Vector2) -> Vector2:
