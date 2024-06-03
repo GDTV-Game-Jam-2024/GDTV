@@ -72,7 +72,17 @@ text = "Fonts used"
 
 [node name="Assets" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Right"]
 layout_mode = 2
-text = "Assets used"
+text = "Assets used:"
+
+[node name="Assets2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Right"]
+layout_mode = 2
+text = "Admurin - arrow asset, boar enemy sprite
+Cainos - portal base, enemy pillars
+Codemanu - portal vfs, enemy pillar vfs
+Foozle - tileset
+Holder - skull enemy sprite
+Penzilla - protagonist sprite
+Pixelfrog - goblin enemy sprite"
 
 [node name="Left" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -93,7 +103,7 @@ text = "TBCoW"
 layout_mode = 2
 text = "PlayfairDisplay, Lato"
 
-[node name="Fonts2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+[node name="blank" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
 text = "Admurin, Cainos,
 Codemanu, Foozle,

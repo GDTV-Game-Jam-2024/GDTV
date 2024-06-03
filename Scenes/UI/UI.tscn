@@ -21,7 +21,16 @@ theme = ExtResource("2_ji0e0")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "00:00"
+text = "Elapsed Time: 00:00"
+
+[node name="KillCount" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.045
+anchor_bottom = 0.06
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Killed Enemies: 0"
 
 [node name="Minimap" type="PanelContainer" parent="Control"]
 layout_mode = 1

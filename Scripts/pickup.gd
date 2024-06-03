@@ -9,12 +9,12 @@ extends Node2D
 @onready var timer : Timer = $Timer as Timer
 
 
-func _ready():
+func _ready() -> void:
 	timer.wait_time = lifetime
 	timer.start()
 
 
-func _on_area_2d_body_entered(body : CharacterBody2D):
+func _on_area_2d_body_entered(body : CharacterBody2D) -> void:
 	var addedWand : int = 0
 	if addWand:
 		addedWand = randi_range(1,5)
@@ -22,8 +22,12 @@ func _on_area_2d_body_entered(body : CharacterBody2D):
 		body.add_wand(addedWand)
 		body.heal(restoreHP)
 		body.mana_gain(restoreMana)
-	queue_free()
+	disapperar()
 
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
+	disapperar()
+
+
+func disapperar() -> void:
 	queue_free()

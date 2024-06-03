@@ -62,7 +62,7 @@ func drop_pickup(location : Vector2) -> void:
 	else:
 		pickup = load("res://Scenes/Pickups/new_wand.tscn") as PackedScene
 		newPickup = pickup.instantiate() as Pickup
-	pickupsManager.add_child(newPickup)
+	pickupsManager.call_deferred("add_child", newPickup)
 	newPickup.global_position = location
 
 
@@ -72,14 +72,21 @@ func spawn_spawner() -> void:
 	# determine spawn location based on the path
 	var spawn_location : PathFollow2D = $SpawnerPath/SpawnerSpawnLocation as PathFollow2D
 	spawn_location.progress_ratio = randf()
-	print("Spawn Location set to ", spawn_location.position)
 	
 	# create new spawner with the generated location
 	var new_spawner : Spawner = spawner.instantiate() as Spawner
 	new_spawner.init(spawn_location.position)
 	creatureManager.add_child(new_spawner)
+	ui.add_unit_to_minimap(new_spawner, ui.ENTITIES.SPAWNER)
 	new_spawner.connect("spawnedEnemy", _on_enemy_created)
-	print(new_spawner," was created.")
+	new_spawner.connect("dead", _on_entity_dead)
+
+
+func end_game() -> void:
+	var menu : PackedScene = load("res://Scenes/UI/end_menu.tscn") as PackedScene
+	var initMenu : Control = menu.instantiate() as Control
+	ui.add_child(initMenu)
+	get_tree().paused = true
 
 
 func _on_enemy_created(enemy : NPC) -> void:
@@ -90,9 +97,12 @@ func _on_enemy_created(enemy : NPC) -> void:
 
 
 func _on_entity_dead(actor : CharacterBody2D) -> void:
+	if actor is Player:
+		end_game()
 	if actor is NPC:
 		drop_pickup(actor.global_position)
 	ui.remove_unit_from_minimap(actor)
+	ui.add_kill()
 	actor.queue_free()
 
 
