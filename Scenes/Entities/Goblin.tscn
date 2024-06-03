@@ -166,6 +166,7 @@ _data = {
 "RESET": SubResource("Animation_oo5se"),
 "Walk_right": SubResource("Animation_dp2g2")
 }
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_k35vg"]
 animations = [{
 "frames": [{
