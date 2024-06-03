@@ -4,7 +4,7 @@ signal projectile_shot(projectileName)
 signal mana_changed(newMana)
 signal no_mana
 
-@export var movementSpeed : float = 1000.0
+@export var movementSpeed : float = 300.0
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
 @export var manaMax : int = 500.0
