@@ -54,6 +54,8 @@ func _physics_process(delta : float) -> void:
 
 func initialize_ai(entityID : NPC) -> void:
 	entity = entityID
+	if entity.State_GO_TO_DEFAULT_TARGET:
+		choose_state()
 
 
 func set_default_target_location(targetLocation : Vector2) -> void:
@@ -134,6 +136,7 @@ func execute_state() -> void:
 				entity.velocity = entity.stop_moving()
 				entity.set_target_melee(get_closest_enemy())
 				entity.attack_melee()
+				choose_state()
 		State.ATTACK_MELEE_CHARGE:
 			if closestEnemy != null:
 				canChangeState = false
@@ -155,6 +158,9 @@ func execute_state() -> void:
 				entity.set_target(closestEnemy.global_position)
 				entity.move_and_slide()
 				choose_state()
+		State.GO_TO_DEFAULT_TARGET:
+			entity.velocity = entity.velocity_toward(Vector2(1280*1.5,720*1.5))
+			entity.move_and_slide()
 #endregion
 
 
