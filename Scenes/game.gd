@@ -21,6 +21,7 @@ func _ready() -> void:
 	player.connect("projectile_shot", _on_projectile_shot)
 	player.connect("mana_changed", _on_mana_changed)
 	player.connect("no_mana", _on_no_mana)
+	player.connect("dead", _on_entity_dead)
 	ui.set_minimap_dimension(24, 13.5)
 	ui.add_unit_to_minimap(player, UI.ENTITIES.PLAYER)
 
@@ -60,6 +61,11 @@ func _on_enemy_created(enemy : NPC) -> void:
 	creatureManager.add_child(enemy)
 	ui.add_unit_to_minimap(enemy, ui.ENTITIES.ENEMY)
 	enemy.connect("projectile_shot", _on_npc_projectile_shot)
+	enemy.connect("dead", _on_entity_dead)
+
+
+func _on_entity_dead(actor : CharacterBody2D) -> void:
+	ui.remove_unit_from_minimap(actor)
 
 
 func _on_projectile_shot(projectileName : Projectile) -> void:
