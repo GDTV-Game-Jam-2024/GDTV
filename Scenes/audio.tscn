@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://c2182hb3yho" path="res://Sounds/explosion_effect.wav" id="10_7awrl"]
 
 [node name="Audio" type="Node"]
+process_mode = 3
 script = ExtResource("1_skpr3")
 
 [node name="MainTheme" type="AudioStreamPlayer" parent="."]

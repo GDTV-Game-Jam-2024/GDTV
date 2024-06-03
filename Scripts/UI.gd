@@ -10,7 +10,9 @@ extends CanvasLayer
 @onready var weapon5 : TextureRect = $Control/WeaponBar/Weapons/Weapon1 as TextureRect
 @onready var weapon6 : TextureRect = $Control/WeaponBar/Weapons/Weapon1 as TextureRect
 @onready var timeLabel : Label = $Control/Timer as Label
+@onready var killCount : Label = $Control/KillCount as Label
 
+var kills : int = 0
 var time : float = 0
 var minutes : int = 0
 var seconds : int = 0
@@ -23,7 +25,7 @@ func _physics_process(delta : float):
 	time += delta
 	minutes = fmod(time, 3600) / 60
 	seconds = fmod(time, 60)
-	timeLabel.text = "%02d : %02d" % [minutes, seconds]
+	timeLabel.text = "Elapsed Time: %02d : %02d" % [minutes, seconds]
 
 
 func _process(delta : float) -> void:
@@ -34,6 +36,11 @@ func _process(delta : float) -> void:
 
 func set_mana(value : int) -> void:
 	manaText.text = str(value)
+
+
+func add_kill() -> void:
+	kills += 1
+	killCount.text = "Killed Enemies: " + str(kills)
 
 
 func set_minimap_dimension(valueX : float, valueY : float) -> void:
