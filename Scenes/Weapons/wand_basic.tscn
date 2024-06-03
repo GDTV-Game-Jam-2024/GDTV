@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhqb05n80ug84"]
+[gd_scene load_steps=4 format=3 uid="uid://dhqb05n80ug84"]
 
 [ext_resource type="PackedScene" uid="uid://ohlhdt3pway8" path="res://Scenes/Weapons/weapon.tscn" id="1_0oh2n"]
 [ext_resource type="PackedScene" uid="uid://c6uesvyoow0ll" path="res://Scenes/Projectiles/player_basic_wand_projectile.tscn" id="2_v5sev"]
+[ext_resource type="Texture2D" uid="uid://s16a3fypnc5h" path="res://Sprites/WandBasic.png" id="3_1evc6"]
 
 [node name="WandBasic" instance=ExtResource("1_0oh2n")]
 manaCost = 50
 spread = 10
 projectile = ExtResource("2_v5sev")
 team = "Player"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_1evc6")
+
+[node name="Marker2D" parent="Sprite2D" index="0"]
+position = Vector2(10, 0)
