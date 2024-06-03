@@ -178,6 +178,7 @@ func _on_can_swap() -> void:
 func damage(amount : int) -> void:
 	healthCurrent = healthCurrent - amount
 	update_health_bar()
+	Audio.play(Audio.playerHurt)
 	# check if dead
 	if healthCurrent <= 0:
 		die()
