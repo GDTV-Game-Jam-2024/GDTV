@@ -60,10 +60,13 @@ func damage(amount: int) -> void:
 	currentHP = currentHP - amount
 	if currentHP <= 0:
 		die()
+	else:
+		Audio.play(Audio.enemyHurt)
 
 
 func die() -> void:
 	isAlive = false
+	Audio.play(Audio.enemyDead)
 	dead.emit(self)
 	queue_free()
 
@@ -100,6 +103,7 @@ func attack_melee() -> void:
 	if canAttackMelee:
 		if meleeTarget.has_method("damage"):
 			meleeTarget.damage(meleeAttackDamage)
+			Audio.play(Audio.enemyMelee)
 			canAttackMelee = false
 			$MeleeAttackCooldown.start()
 
@@ -114,6 +118,7 @@ func attack_charge() -> void:
 
 func attack_ranged() -> void:
 	if loadedWeapon.canShoot:
+		Audio.play(Audio.enemyShot)
 		loadedWeapon.shoot()
 
 
