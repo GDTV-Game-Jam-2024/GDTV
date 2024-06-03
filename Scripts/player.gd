@@ -196,6 +196,7 @@ func heal(amount : int) -> void:
 func die() -> void:
 	isAlive = false
 	dead.emit(self)
+	queue_free()
 
 
 # send healthMax and healthCurrent to $Health_bar

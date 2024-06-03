@@ -17,3 +17,7 @@ func _on_button_pressed_options() -> void:
 func _on_button_pressed_credits() -> void:
 	go_to_scene("res://Scenes/credits.tscn")
 	pass # Replace with function body.
+
+
+func _on_exit_pressed():
+	get_tree().quit()
