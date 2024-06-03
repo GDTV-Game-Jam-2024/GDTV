@@ -9,7 +9,7 @@ signal dead(who)
 @export var movementSpeed : float = 300.0
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
-@export var manaMax : int = 500.0
+@export var manaMax : int = 1500.0
 @export var manaCurrent : float = 300.0
 @export var manaRegen : float = 100.0
 @export var isAlive : bool = true
