@@ -10,8 +10,7 @@ func go_to_scene(scene : String) -> void:
 
 
 func _on_button_pressed_options() -> void:
-	print("Options button pressed")
-	pass # Replace with function body.
+	go_to_scene("res://Scenes/options.tscn")
 
 
 func _on_button_pressed_credits() -> void:
