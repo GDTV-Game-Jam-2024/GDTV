@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfushfp88gnbx"]
+
+[ext_resource type="PackedScene" uid="uid://d08f4mk50jrpc" path="res://Scenes/Pickups/pickup.tscn" id="1_feau4"]
+
+[node name="ManaPotion" instance=ExtResource("1_feau4")]
+restoreMana = 50

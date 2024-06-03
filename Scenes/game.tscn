@@ -387,9 +387,9 @@ position = Vector2(640, 360)
 
 [node name="CreatureManager" type="Node2D" parent="."]
 
+[node name="PickupsManager" type="Node2D" parent="."]
+
 [node name="NPC" parent="." instance=ExtResource("5_2u6hb")]
 position = Vector2(1920, 1082)
 
-
 [node name="UI" parent="." instance=ExtResource("6_4jpyb")]
-
