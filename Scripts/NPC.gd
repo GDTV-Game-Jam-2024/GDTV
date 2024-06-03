@@ -2,6 +2,7 @@ class_name NPC
 extends CharacterBody2D
 
 signal projectile_shot(projectile_name, projectileOwner)
+signal dead(who)
 
 @onready var characterAI : AI = $AI
 @onready var stateInfo : Label = $StateDebugInfo
@@ -63,6 +64,7 @@ func damage(amount: int) -> void:
 
 func die() -> void:
 	isAlive = false
+	dead.emit(self)
 	queue_free()
 
 
