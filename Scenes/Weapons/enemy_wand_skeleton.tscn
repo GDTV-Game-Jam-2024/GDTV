@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbyi2gaabt5st"]
+
+[ext_resource type="PackedScene" uid="uid://ohlhdt3pway8" path="res://Scenes/Weapons/weapon.tscn" id="1_idhey"]
+[ext_resource type="PackedScene" uid="uid://cjhqfoj7sagdj" path="res://Scenes/Projectiles/skeleton_projectile.tscn" id="2_sgao3"]
+
+[node name="Weapon" instance=ExtResource("1_idhey")]
+cooldown = 1.5
+spread = 15
+projectile = ExtResource("2_sgao3")

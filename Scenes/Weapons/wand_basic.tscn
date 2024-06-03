@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhqb05n80ug84"]
+[gd_scene load_steps=3 format=3 uid="uid://dhqb05n80ug84"]
 
 [ext_resource type="PackedScene" uid="uid://ohlhdt3pway8" path="res://Scenes/Weapons/weapon.tscn" id="1_0oh2n"]
+[ext_resource type="PackedScene" uid="uid://c6uesvyoow0ll" path="res://Scenes/Projectiles/player_basic_wand_projectile.tscn" id="2_v5sev"]
 
 [node name="WandBasic" instance=ExtResource("1_0oh2n")]
+cooldown = 0.8
+manaCost = 10
+spread = 10
+projectile = ExtResource("2_v5sev")
 team = "Player"
