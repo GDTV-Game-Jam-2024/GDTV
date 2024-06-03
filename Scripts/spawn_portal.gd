@@ -2,13 +2,14 @@ class_name Spawner
 extends CharacterBody2D
 
 signal spawnedEnemy(enemy)
+signal dead(who)
 
 
 @export var spawnTimerMax : float = 7  # how often it spawns enemies
 @export var spawnTimer : float = 7  # how much time left until next spawn
 @export var spawnPower : int = 10  # how many enemies get spawned per cycle
 @export var spawnCounter : int = 0  # how many enemies were spawned this cycle
-@export var health : float = 3.0  # how much damage it can take (takes 1 damage per second)
+@export var health : int = 3  # how much damage it can take (takes 1 damage per second)
 @export var isAlive : bool = true
 @export var summoningActive : bool = true  # set to false if player nearby
 # TODO: check for player proximity
@@ -23,7 +24,7 @@ func init(coordinates : Vector2) -> void:
 	global_position = coordinates
 	spawnTimer = 1
 	spawnPower = 20
-	health = 3000
+	health = 5
 	isAlive = true
 
 
@@ -33,20 +34,12 @@ func _ready() -> void:
 
 func _process(delta : float) -> void:
 	$AnimationPlayer.play("default", -1, -3, true)
-	if health <= 0 : isAlive = false
 
 
 func _physics_process(delta : float) -> void:
-	
-	
 	if isAlive:
 		if summoningActive:
 			spawnTimer -= delta
-		else:
-			health -= delta
-			if health<=0:
-				isAlive=false
-				kill()
 	
 	if spawnTimer < 0:
 		spawnCycle()
@@ -93,21 +86,23 @@ func spawnCycle() -> void:
 	spawnPower += 5
 
 	# reset spawn timer
-	spawnTimer = spawnTimer + spawnTimerMax	
+	spawnTimer = spawnTimer + spawnTimerMax
+	health -= 1
+	print(health)
+	if health <= 0:
+		kill()
 
 
 func spawn_enemy(enemyType: PackedScene) -> void:
 	var spawn_location : PathFollow2D = $SummonPath/PathFollow2D as PathFollow2D
 	spawn_location.progress_ratio = randf()
-	print("Spawn Location set to ", spawn_location.position)
-	
+
 	var newEnemy : NPC = enemyType.instantiate() as NPC
 	spawnedEnemy.emit(newEnemy)
 	newEnemy.global_position = spawn_location.global_position
-	print(newEnemy," was created.")
 
 
 # called when isAlive is set to false
 func kill() -> void:
-	print("killed", $".")
+	dead.emit(self)
 	queue_free()
