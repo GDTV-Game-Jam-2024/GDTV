@@ -1,7 +1,7 @@
 [gd_scene load_steps=134 format=3 uid="uid://cp308twrdpldd"]
 
 [ext_resource type="Texture2D" uid="uid://c6hovh4oqs4d4" path="res://Sprites/Evil Rock.png" id="1_dpn0r"]
-[ext_resource type="Script" path="res://Scenes/spawn_portal.gd" id="1_mf87n"]
+[ext_resource type="Script" path="res://Scripts/spawn_portal.gd" id="1_mf87n"]
 [ext_resource type="Texture2D" uid="uid://di0b7lvn7x33h" path="res://Sprites/13_vortex_spritesheet.png" id="2_r7jwc"]
 [ext_resource type="Texture2D" uid="uid://bd4v7ovn1w7ts" path="res://Sprites/spawn_portal.png" id="3_urpwg"]
 

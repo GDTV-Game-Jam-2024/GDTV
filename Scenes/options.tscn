@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bom77rcvnlkqn"]
+[gd_scene load_steps=3 format=3 uid="uid://bom77rcvnlkqn"]
 
 [ext_resource type="Theme" uid="uid://c14wkwoumii1u" path="res://UI/MenuTheme.tres" id="1_ls5tj"]
+[ext_resource type="Script" path="res://Scripts/options.gd" id="2_35e3b"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -10,8 +11,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ls5tj")
+script = ExtResource("2_35e3b")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+layout_direction = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -26,9 +29,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_direction = 1
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_direction = 1
 layout_mode = 2
 alignment = 1
 
@@ -39,26 +44,97 @@ text = "Insert Game Name"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Play" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="WindowMode" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Play"
+theme_override_constants/separation = 10
+alignment = 2
 
-[node name="Options" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/WindowMode"]
 layout_mode = 2
-text = "Options"
+text = "Window Mode"
 
-[node name="Credit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="CheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/WindowMode"]
 layout_mode = 2
-text = "Credit"
+size_flags_horizontal = 8
+text = "WINDOW MODE"
 
-[node name="Exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="VolumeMaster" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Exit"
+theme_override_constants/separation = 30
+alignment = 2
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_button_press_play"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Options" to="." method="_on_button_pressed_options"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Credit" to="." method="_on_button_pressed_credits"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMaster"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="Button1M" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMaster"]
+layout_mode = 2
+text = "-10%"
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMaster"]
+layout_mode = 2
+text = "100%"
+
+[node name="Button1P" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMaster"]
+layout_mode = 2
+text = "+10%"
+
+[node name="VolumeSFX" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeSFX"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="Button2M" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeSFX"]
+layout_mode = 2
+text = "-10%"
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeSFX"]
+layout_mode = 2
+text = "100%"
+
+[node name="Button2P" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeSFX"]
+layout_mode = 2
+text = "+10%"
+
+[node name="VolumeMusic" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMusic"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="Button3M" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMusic"]
+layout_mode = 2
+text = "-10%"
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMusic"]
+layout_mode = 2
+text = "100%"
+
+[node name="Button3P" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMusic"]
+layout_mode = 2
+text = "+10%"
+
+[node name="Back" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "BACK"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/WindowMode/CheckButton" to="." method="_on_check_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMaster/Button1M" to="." method="_on_button_1m_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMaster/Button1P" to="." method="_on_button_1p_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeSFX/Button2M" to="." method="_on_button_2m_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeSFX/Button2P" to="." method="_on_button_2p_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMusic/Button3M" to="." method="_on_button_3m_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/VolumeMusic/Button3P" to="." method="_on_button_3p_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
