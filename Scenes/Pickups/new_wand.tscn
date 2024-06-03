@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvdx2hhwxmwqa"]
+
+[ext_resource type="PackedScene" uid="uid://d08f4mk50jrpc" path="res://Scenes/Pickups/pickup.tscn" id="1_42ecb"]
+
+[node name="NewWand" instance=ExtResource("1_42ecb")]

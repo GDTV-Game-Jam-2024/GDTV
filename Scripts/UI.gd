@@ -50,8 +50,6 @@ func add_unit_to_minimap(unit : CharacterBody2D, type : ENTITIES) -> void:
 			marker.color = Color.GREEN
 		ENTITIES.ENEMY:
 			marker.color = Color.RED
-		ENTITIES.PICKUP:
-			marker.color = Color.WHITE_SMOKE
 		ENTITIES.SPAWNER:
 			marker.color = Color.PURPLE
 	minimap.add_child(marker)

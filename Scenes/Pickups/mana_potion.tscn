@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfushfp88gnbx"]
+[gd_scene load_steps=3 format=3 uid="uid://bfushfp88gnbx"]
 
 [ext_resource type="PackedScene" uid="uid://d08f4mk50jrpc" path="res://Scenes/Pickups/pickup.tscn" id="1_feau4"]
+[ext_resource type="Texture2D" uid="uid://cxj3ld4u1sg5b" path="res://Sprites/manaPotion.png" id="2_uilko"]
 
 [node name="ManaPotion" instance=ExtResource("1_feau4")]
 restoreMana = 50
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_uilko")

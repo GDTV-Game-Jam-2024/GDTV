@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://iin1x5cb58op"]
+[gd_scene load_steps=3 format=3 uid="uid://iin1x5cb58op"]
 
 [ext_resource type="PackedScene" uid="uid://d08f4mk50jrpc" path="res://Scenes/Pickups/pickup.tscn" id="1_6a7ih"]
+[ext_resource type="Texture2D" uid="uid://b3grlig42ds80" path="res://Sprites/apple.png" id="2_km4qh"]
 
 [node name="Food" instance=ExtResource("1_6a7ih")]
 restoreHP = 5
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_km4qh")
