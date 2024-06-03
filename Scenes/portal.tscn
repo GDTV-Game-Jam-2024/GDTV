@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://hp7gg8d4dta"]
+
+[ext_resource type="PackedScene" uid="uid://djmvmje8k5mgm" path="res://Scenes/Entities/NPC.tscn" id="1_rmue3"]
+[ext_resource type="Script" path="res://Scenes/portal.gd" id="2_5i3e6"]
+[ext_resource type="Texture2D" uid="uid://cuinr4y8efvks" path="res://Sprites/Dimensional_Portal.png" id="3_rjju0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7uav"]
+atlas = ExtResource("3_rjju0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_faurc"]
+atlas = ExtResource("3_rjju0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsonk"]
+atlas = ExtResource("3_rjju0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkkm6"]
+atlas = ExtResource("3_rjju0")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5tq7"]
+atlas = ExtResource("3_rjju0")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo7x2"]
+atlas = ExtResource("3_rjju0")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r1bog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7uav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_faurc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsonk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkkm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5tq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo7x2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="NPC" instance=ExtResource("1_rmue3")]
+script = ExtResource("2_5i3e6")
+team = "Player"
+statMaxHP = 1000
+rangedWeapon = null
+State_ATTACK_RANGE = false
+State_ATTACK_RANGE_SMART = false
+State_ATTACK_MELEE = false
+State_ATTACK_MELEE_CHARGE = false
+State_APPROACH_ENEMY = false
+State_GO_TO_DEFAULT_TARGET = false
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+visible = true
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_r1bog")
+frame_progress = 0.805317
+
+[node name="CharacterDetection" parent="." index="5"]
+visible = false
+
+[node name="MeleeRange" parent="." index="6"]
+visible = false
+
+[node name="RangedRange" parent="." index="7"]
+visible = false
