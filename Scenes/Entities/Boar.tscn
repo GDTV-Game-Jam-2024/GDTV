@@ -105,10 +105,12 @@ animations = [{
 
 [node name="NPC" instance=ExtResource("1_wpdvm")]
 script = ExtResource("2_1jwpf")
-meleeAttackDamage = 25
+statMovementSpeed = 120.0
+statMaxHP = 30
 meleeAttackCooldown = 1.0
 meleeChargeHealthThreshold = 80
-meleeChargeSpeed = 500.0
+meleeChargeDamage = 15
+meleeChargeSpeed = 400.0
 rangedWeapon = ExtResource("3_ptpk7")
 State_ATTACK_RANGE = false
 State_ATTACK_RANGE_SMART = false

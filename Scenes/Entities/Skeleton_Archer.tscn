@@ -84,7 +84,7 @@ animations = [{
 
 [node name="NPC" instance=ExtResource("1_d5yqo")]
 script = ExtResource("2_fi8e7")
-statMovementSpeed = 100.0
+statMovementSpeed = 80.0
 statMaxHP = 1
 meleeAttackCooldown = 1.5
 meleeChargeHealthThreshold = 0

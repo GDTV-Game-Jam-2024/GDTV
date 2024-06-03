@@ -4,11 +4,11 @@ extends CharacterBody2D
 signal spawnedEnemy(enemy)
 
 
-@export var spawnTimerMax : float = 4  # how often it spawns enemies
-@export var spawnTimer : float = 4  # how much time left until next spawn
-@export var spawnPower : int = 20  # how many enemies get spawned per cycle
+@export var spawnTimerMax : float = 7  # how often it spawns enemies
+@export var spawnTimer : float = 7  # how much time left until next spawn
+@export var spawnPower : int = 10  # how many enemies get spawned per cycle
 @export var spawnCounter : int = 0  # how many enemies were spawned this cycle
-@export var health : float = 3000  # how much damage it can take (takes 1 damage per second)
+@export var health : float = 3.0  # how much damage it can take (takes 1 damage per second)
 @export var isAlive : bool = true
 @export var summoningActive : bool = true  # set to false if player nearby
 # TODO: check for player proximity
@@ -70,8 +70,9 @@ func spawnCycle() -> void:
 			spawn_enemy(goblin)
 			spawnCounter += 5
 			spawn_enemy(skeletonArcher)
-			spawnCounter += 15
+			spawnCounter += 10
 			spawn_enemy(boar)
+			spawnCounter += 10
 	elif spawnPower < 100: 
 		while spawnCounter < spawnPower:
 			spawn_enemy(goblin)
@@ -79,9 +80,11 @@ func spawnCycle() -> void:
 			spawn_enemy(goblin)
 			spawnCounter += 5
 			spawn_enemy(skeletonArcher)
-			spawnCounter += 15
-			spawn_enemy(giant)
-			spawnCounter += 25
+			spawnCounter += 10
+			spawn_enemy(skeletonArcher)
+			spawnCounter += 10
+			spawn_enemy(boar)
+			spawnCounter += 10
 	
 	# reset spawn_counter
 	spawnCounter = 0

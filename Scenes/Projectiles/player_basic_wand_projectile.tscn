@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dtt8bueua8h8b" path="res://Sprites/magic_missile.png" id="2_eaiou"]
 
 [node name="Projectile" instance=ExtResource("1_mks33")]
+damage = 10
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-8, 0)

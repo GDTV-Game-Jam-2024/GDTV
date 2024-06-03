@@ -166,6 +166,7 @@ _data = {
 "RESET": SubResource("Animation_oo5se"),
 "Walk_right": SubResource("Animation_dp2g2")
 }
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_k35vg"]
 animations = [{
 "frames": [{
@@ -298,12 +299,12 @@ _data = {
 
 [node name="NPC" instance=ExtResource("1_0nelu")]
 script = ExtResource("2_43422")
-statMovementSpeed = 200.0
+statMovementSpeed = 100.0
 statMaxHP = 1
-meleeAttackDamage = 5
+meleeAttackCooldown = 1.2
 meleeChargeHealthThreshold = 0
 meleeChanceForCharge = 0
-meleeChargeDamage = 10
+meleeChargeDamage = 15
 meleeChargeSpeed = 300.0
 State_ATTACK_RANGE = false
 State_ATTACK_RANGE_SMART = false
@@ -326,7 +327,6 @@ visible = false
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." index="10"]
 visible = false
-
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_k35vg")
 animation = &"Walk"

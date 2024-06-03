@@ -4,12 +4,12 @@ signal projectile_shot(projectileName)
 signal mana_changed(newMana)
 signal no_mana
 
-@export var movementSpeed : float = 1000.0
+@export var movementSpeed : float = 300.0
 @export var healthMax : int = 100
 @export var healthCurrent : int = 100
 @export var manaMax : int = 500.0
-@export var manaCurrent : int = 50.0
-@export var manaRegen : int = 1
+@export var manaCurrent : float = 300.0
+@export var manaRegen : float = 100.0
 @export var isAlive : bool = true
 @export var isWalking : bool = false
 
@@ -71,7 +71,7 @@ func _physics_process(delta : float) -> void:
 		position += moveVector.normalized() * movementSpeed * delta
 		
 		# mana regen
-		mana_gain(manaRegen)
+		mana_gain(manaRegen*delta)
 
 
 func _unhandled_input(event : InputEvent) -> void:
