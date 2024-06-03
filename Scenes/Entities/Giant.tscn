@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfg3k8ngddw5l"]
+
+[ext_resource type="PackedScene" uid="uid://djmvmje8k5mgm" path="res://Scenes/Entities/NPC.tscn" id="1_ryaxm"]
+[ext_resource type="Texture2D" uid="uid://c13kcxnjgqer2" path="res://Sprites/giant.png" id="2_g71sw"]
+
+[node name="NPC" instance=ExtResource("1_ryaxm")]
+statMovementSpeed = 100.0
+meleeAttackDamage = 25
+meleeAttackCooldown = 3.0
+meleeChargeHealthThreshold = 50
+meleeChargeSpeed = 250.0
+State_ATTACK_RANGE = false
+State_ATTACK_RANGE_SMART = false
+
+[node name="Sprite2D" parent="." index="2"]
+visible = true
+scale = Vector2(2, 2)
+texture = ExtResource("2_g71sw")
+
+[node name="CharacterColision" parent="." index="4"]
+scale = Vector2(3, 3)
+
+[node name="CollisionShape2D" parent="MeleeRange" index="0"]
+scale = Vector2(2.5, 2.5)
+
+[node name="RangedRange" parent="." index="7"]
+visible = false

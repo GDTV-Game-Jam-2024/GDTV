@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://regjxjddicd5"]
+[gd_scene load_steps=26 format=3 uid="uid://regjxjddicd5"]
 
 [ext_resource type="PackedScene" uid="uid://djmvmje8k5mgm" path="res://Scenes/Entities/NPC.tscn" id="1_0nelu"]
+[ext_resource type="Script" path="res://Scenes/Entities/Goblin.gd" id="2_43422"]
 [ext_resource type="Texture2D" uid="uid://beod12ge6hf0s" path="res://Sprites/goblin_torch.png" id="2_nvhvo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8nsn"]
@@ -100,6 +101,71 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_8gxe6"]
+resource_name = "Attack_Right"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_oo5se"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dp2g2"]
+resource_name = "Walk_right"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Walk"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n6oy2"]
+_data = {
+"Attack_Right": SubResource("Animation_8gxe6"),
+"RESET": SubResource("Animation_oo5se"),
+"Walk_right": SubResource("Animation_dp2g2")
+}
 [sub_resource type="SpriteFrames" id="SpriteFrames_k35vg"]
 animations = [{
 "frames": [{
@@ -231,19 +297,36 @@ _data = {
 }
 
 [node name="NPC" instance=ExtResource("1_0nelu")]
+script = ExtResource("2_43422")
 statMovementSpeed = 200.0
-statMaxHP = 10
+statMaxHP = 1
 meleeAttackDamage = 5
+meleeChargeHealthThreshold = 0
+meleeChanceForCharge = 0
 meleeChargeDamage = 10
 meleeChargeSpeed = 300.0
 State_ATTACK_RANGE = false
 State_ATTACK_RANGE_SMART = false
+State_ATTACK_MELEE_CHARGE = false
 
 [node name="AnimatedSprite2D" parent="." index="1"]
+visible = true
+scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_34m42")
-animation = &"Attack"
+animation = &"Walk"
+autoplay = "Walk"
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_n6oy2")
+}
+
+[node name="RangedRange" parent="." index="7"]
+visible = false
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." index="10"]
+visible = false
+
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_k35vg")
 animation = &"Walk"

@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4gqfcinusn6j"]
 
-[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_qncly"]
+[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_52qdc"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ldumk"]
 size = Vector2(50, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg3sc"]
-size = Vector2(20, 10)
+size = Vector2(10, 8)
 
 [node name="Projectile" type="Node2D"]
-script = ExtResource("1_qncly")
+script = ExtResource("1_52qdc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_ldumk")

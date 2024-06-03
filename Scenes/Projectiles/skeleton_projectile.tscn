@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjhqfoj7sagdj"]
+
+[ext_resource type="PackedScene" uid="uid://c4gqfcinusn6j" path="res://Scenes/Projectiles/projectile.tscn" id="1_fjr3c"]
+[ext_resource type="Texture2D" uid="uid://pnj48e72y14c" path="res://Sprites/arrow.png" id="2_vcif3"]
+
+[node name="Projectile" instance=ExtResource("1_fjr3c")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-18, 0)
+rotation = 2.35619
+scale = Vector2(2, 2)
+texture = ExtResource("2_vcif3")
