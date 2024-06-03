@@ -16,7 +16,7 @@ signal spawnedEnemy(enemy)
 var goblin : PackedScene = load("res://Scenes/Entities/Goblin.tscn") as PackedScene
 var skeletonArcher : PackedScene = load("res://Scenes/Entities/Skeleton_Archer.tscn") as PackedScene
 var giant : PackedScene = load("res://Scenes/Entities/Giant.tscn") as PackedScene
-
+var boar : PackedScene = load("res://Scenes/Entities/Boar.tscn") as PackedScene
 
 # allows initialization with coordinates
 func init(coordinates : Vector2) -> void:
@@ -37,11 +37,16 @@ func _process(delta : float) -> void:
 
 
 func _physics_process(delta : float) -> void:
+	
+	
 	if isAlive:
 		if summoningActive:
 			spawnTimer -= delta
-	else:
-		kill()
+		else:
+			health -= delta
+			if health<=0:
+				isAlive=false
+				kill()
 	
 	if spawnTimer < 0:
 		spawnCycle()
@@ -66,6 +71,7 @@ func spawnCycle() -> void:
 			spawnCounter += 5
 			spawn_enemy(skeletonArcher)
 			spawnCounter += 15
+			spawn_enemy(boar)
 	elif spawnPower < 100: 
 		while spawnCounter < spawnPower:
 			spawn_enemy(goblin)
