@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhy1mw4ax6rhn"]
+
+[ext_resource type="Theme" uid="uid://c14wkwoumii1u" path="res://UI/MenuTheme.tres" id="1_1vqji"]
+[ext_resource type="Script" path="res://Sprites/credits.gd" id="2_uqsqp"]
+
+[node name="About" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1vqji")
+script = ExtResource("2_uqsqp")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -273.5
+offset_top = -94.0
+offset_right = 273.5
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_direction = 1
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You are an evil wizard."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "While you were planning yet another world conquest you decided to start summoning some minions. Something went wrong. Now completly unprepared you have to defend against an onslaught of enemies that should have served you instead!
+
+Defend yourself and your mana source in this last stand!"
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "BACK"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

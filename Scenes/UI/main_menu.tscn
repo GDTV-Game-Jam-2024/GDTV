@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7gn6jyptuqta"]
 
-[ext_resource type="Theme" uid="uid://c14wkwoumii1u" path="res://UI/MenuTheme.tres" id="1_h5xyo"]
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_ufn2l"]
+[ext_resource type="Theme" uid="uid://c14wkwoumii1u" path="res://UI/MenuTheme.tres" id="1_3e8qr"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="2_q3awe"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -10,8 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_h5xyo")
-script = ExtResource("1_ufn2l")
+theme = ExtResource("1_3e8qr")
+script = ExtResource("2_q3awe")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -48,19 +48,24 @@ size_flags_horizontal = 4
 layout_mode = 2
 text = "Play"
 
+[node name="About" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "About"
+
 [node name="Options" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Options"
 
 [node name="Credit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Credit"
+text = "Credits"
 
 [node name="Exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Exit"
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_button_press_play"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/About" to="." method="_on_about_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Options" to="." method="_on_button_pressed_options"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Credit" to="." method="_on_button_pressed_credits"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
