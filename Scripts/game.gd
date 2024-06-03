@@ -8,6 +8,7 @@ extends Node2D
 
 @onready var projectileManager : Node2D = $ProjectileManager
 @onready var creatureManager : Node2D = $CreatureManager
+@onready var pickupsManager : Node2D = $PickupsManager
 @onready var player : CharacterBody2D = $player
 @onready var ui : UI = $UI as UI
 
