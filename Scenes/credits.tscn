@@ -47,12 +47,13 @@ ChipJames
 
 
 
-Admurin
-Cainos
-Codemanu
-Foozle
-Holder
-Penzilla"
+Admurin - arrow asset, boar enemy sprite
+Cainos - portal base, enemy pillars
+Codemanu - portal vfs, enemy pillar vfs
+Foozle - tileset
+Holder - skull enemy sprite
+Penzilla - protagonist sprite
+Pixelfrog - goblin enemy sprite"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Label3"]
