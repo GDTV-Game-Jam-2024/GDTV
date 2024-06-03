@@ -4,8 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c6uesvyoow0ll" path="res://Scenes/Projectiles/player_basic_wand_projectile.tscn" id="2_v5sev"]
 
 [node name="WandBasic" instance=ExtResource("1_0oh2n")]
-cooldown = 0.8
-manaCost = 10
+manaCost = 50
 spread = 10
 projectile = ExtResource("2_v5sev")
 team = "Player"
