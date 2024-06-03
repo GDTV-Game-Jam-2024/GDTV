@@ -37,7 +37,7 @@ func _on_volume_changed(value : float, audio : String):
 
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 
 func _on_button_1m_pressed():
